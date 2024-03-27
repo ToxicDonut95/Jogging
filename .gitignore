@@ -360,3 +360,13 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore bin/obj folders
+**/bin/
+**/obj/
+
+# Ignore for RIDER
+**/.idea/
+
+# Ignore for Visual Studio
+/.vs/
