@@ -19,7 +19,8 @@ class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        
+
+        Console.WriteLine("hoeren");
         // default connection url => http://localhost:8000
         // docker exec supabase-kong env => get connection key
         /*var supabaseConfiguration = builder.Configuration
