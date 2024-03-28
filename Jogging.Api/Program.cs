@@ -20,17 +20,8 @@ class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         
-        // docker exec supabase-kong env => get connection key
         // default connection url => http://localhost:8000
-        // TEST INSERT FOR SUPABASE
-        /*var model = new City
-        {
-            Name = "The Shire",
-            CountryId = 554
-        };
-
-        await _supabaseClient.From<City>().Insert(model);*/
-        // Add supabase to depedency injector
+        // docker exec supabase-kong env => get connection key
         /*var supabaseConfiguration = builder.Configuration
             .GetSection("Supabase")
             .Get<SupabaseConfiguration>(); // A class used to hold the configuration
@@ -48,7 +39,7 @@ class Program
             logger.LogError(ex, "Failed to establish connection to Supabase.");
         }
 
-        // Register Supabase client in DI container if connection succeeded
+        // Add supabase to depedency injector
         if (supabaseClient != null)
         {
             builder.Services.AddScoped(_ => supabaseClient);

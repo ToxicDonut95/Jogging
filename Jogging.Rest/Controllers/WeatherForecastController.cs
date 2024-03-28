@@ -18,14 +18,14 @@ namespace Jogging.Rest.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMapper _mapper;
-        //private readonly Supabase.Client _supabaseClient; // Inject Supabase client
+        private readonly Supabase.Client _supabaseClient; // Inject Supabase client
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper/*,
-            Supabase.Client supabaseClient*/)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper,
+            Supabase.Client supabaseClient)
         {
             _logger = logger;
             _mapper = mapper;
-            //_supabaseClient = supabaseClient;
+            _supabaseClient = supabaseClient;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -33,6 +33,14 @@ namespace Jogging.Rest.Controllers
         {
             try
             {
+                // TEST INSERT FOR SUPABASE
+                /*var model = new City
+                {
+                    Name = "The Shire",
+                    CountryId = 554
+                };
+
+                await _supabaseClient.From<City>().Insert(model);*/
                 var weatherForeCastDto = new WeatherForecastDTO()
                     { TemperatureC = 6, Date = DateOnly.MinValue, Summary = "test" };
                 return Ok(_mapper.Map<WeatherForecast>(weatherForeCastDto));
