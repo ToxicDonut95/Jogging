@@ -18,14 +18,16 @@ namespace Jogging.Rest.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMapper _mapper;
+        /*
         private readonly Supabase.Client _supabaseClient; // Inject Supabase client
+        */
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper,
-            Supabase.Client supabaseClient)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper/*,
+            Supabase.Client supabaseClient*/)
         {
             _logger = logger;
             _mapper = mapper;
-            _supabaseClient = supabaseClient;
+            /*_supabaseClient = supabaseClient;*/
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
