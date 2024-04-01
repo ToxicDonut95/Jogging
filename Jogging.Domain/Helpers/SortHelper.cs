@@ -1,12 +1,8 @@
-﻿using System.Reflection;
-using System.Text;
-using System.Linq.Dynamic.Core;
-
-namespace Assignment.Domain.Helpers
+﻿namespace Assignment.Domain.Helpers
 {
     public class SortHelper<T> : ISortHelper<T>
     {
-        public IQueryable<T> ApplySort(ref IQueryable<T> entities, string orderByQueryString)
+        /*public IQueryable<T> ApplySort(ref IQueryable<T> entities, string orderByQueryString)
         {
             if (!entities.Any())
                 return entities;
@@ -38,7 +34,12 @@ namespace Assignment.Domain.Helpers
 
             var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
 
-            return entities.OrderBy(orderQuery);
+            return Enumerable.OrderBy<T, string>(entities, orderQuery);// entities.OrderBy(orderQuery);
+            
+        }*/
+        public IQueryable<T> ApplySort(ref IQueryable<T> entities, string? orderByQueryString)
+        {
+            throw new NotImplementedException();
         }
     }
 }
