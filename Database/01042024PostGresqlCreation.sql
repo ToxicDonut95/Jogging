@@ -18,19 +18,19 @@ CREATE TABLE public.School
 CREATE TABLE public.Adress
 (
     Id    INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    Staat VARCHAR(100) NOT NULL,
+    Straat VARCHAR(100) NOT NULL,
     Stad  VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE public.Persoon
 (
     Id            INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    Naam          VARCHAR(50),
-    GeboorteDatum TIMESTAMP(0),
+    Naam          VARCHAR(50) NOT NULL,
+    GeboorteDatum TIMESTAMP(0) NOT NULL,
     IBANNummer    VARCHAR(30),
-    SchoolId      INT  NOT NULL,
-    AdressId      INT  NOT NULL,
-    UserId        UUID NOT NULL,
+    SchoolId      INT ,
+    AdressId      INT,
+    UserId        UUID,
     FOREIGN KEY (SchoolId) REFERENCES public.School (Id),
     FOREIGN KEY (AdressId) REFERENCES public.Adress (Id),
     FOREIGN KEY (UserId) REFERENCES auth.users(id)
@@ -39,7 +39,7 @@ CREATE TABLE public.Persoon
 CREATE TABLE public.LeeftijdCategorie
 (
     Id              INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    Naam            VARCHAR(100),
+    Naam            VARCHAR(100) not null,
     MinimumLeeftijd INT,
     MaximumLeeftijd INT
 );
@@ -47,7 +47,7 @@ CREATE TABLE public.LeeftijdCategorie
 CREATE TABLE public.Wedstrijd
 (
     Id       INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    Naam     VARCHAR(100),
+    Naam     VARCHAR(100) not null,
     Datum    TIMESTAMP(0),
     AdressId INT,
     FOREIGN KEY (AdressId) REFERENCES public.Adress (Id)
@@ -61,6 +61,7 @@ CREATE TABLE public.WedstrijdPerCategorie
     AfstandInKm         INT,
     LeeftijdCategorieId INT,
     WedstrijdId         INT,
+    GunTime             TIMESTAMP(0),
     FOREIGN KEY (LeeftijdCategorieId) REFERENCES public.LeeftijdCategorie (Id),
     FOREIGN KEY (WedstrijdId) REFERENCES public.Wedstrijd (Id)
 );
