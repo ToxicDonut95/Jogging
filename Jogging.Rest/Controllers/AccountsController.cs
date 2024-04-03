@@ -28,6 +28,7 @@ namespace Jogging.Rest.Controllers
         }
         #endregion
         #region GET
+        [HttpGet]
         public ActionResult<Account> GetAll([FromQuery] QueryStringParameters parameters)
         {
             var emps = _accountRepo.GetAll(parameters);
@@ -46,6 +47,9 @@ namespace Jogging.Rest.Controllers
 
             return Ok(emps);
         }
+        
+        
+        [HttpGet("{id}")]
         public ActionResult<Account> Get(int id)
         {
             return Ok(_accountRepo.GetById(id));
@@ -54,7 +58,8 @@ namespace Jogging.Rest.Controllers
         #endregion
 
         #region POST
-        public ActionResult<Account>? Post([FromBody] Account employee)
+        [HttpPost]
+        public ActionResult<Account>? Post([FromBody] Account account)
         {
             throw new NotImplementedException();
         }
@@ -62,7 +67,8 @@ namespace Jogging.Rest.Controllers
         #endregion
 
         #region PUT
-        public ActionResult<bool> Put([FromBody] Account employee)
+        [HttpPut]
+        public ActionResult<bool> Put([FromBody] Account account)
         {
             throw new NotImplementedException();
         }
@@ -70,7 +76,8 @@ namespace Jogging.Rest.Controllers
         #endregion
 
         #region DELETE
-        public ActionResult<bool> Delete([FromBody] Account employee)
+        [HttpDelete]
+        public ActionResult<bool> Delete([FromBody] Account account)
         {
             throw new NotImplementedException();
         }

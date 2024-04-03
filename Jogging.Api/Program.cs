@@ -1,4 +1,6 @@
-﻿using Jogging.Infrastructure.Repositories;
+﻿using Jogging.Api.Configuration;
+using Jogging.Api.ServiceExtensions;
+using Jogging.Infrastructure.Repositories;
 using Jogging.Rest.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,31 +21,9 @@ class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        
-        // default connection url => http://localhost:8000
-        // docker exec supabase-kong env => get connection key
-        /*var supabaseConfiguration = builder.Configuration
-            .GetSection("Supabase")
-            .Get<SupabaseConfiguration>(); // A class used to hold the configuration
-
-        // Attempt to create Supabase client
-        Supabase.Client supabaseClient = null;
-        try
-        {
-            supabaseClient = new Supabase.Client(supabaseConfiguration.SupabaseUrl, supabaseConfiguration.SupabaseKey);
-        }
-        catch (Exception ex)
-        {
-            // Log connection error
-            var logger = builder.Services.BuildServiceProvider().GetService<ILogger<Program>>();
-            logger.LogError(ex, "Failed to establish connection to Supabase.");
-        }
-
-        // Add supabase to depedency injector
-        if (supabaseClient != null)
-        {
-            builder.Services.AddScoped(_ => supabaseClient);
-        }*/
+        builder.Services.AddSupabase(builder.Configuration);
+        builder.Services.AddRateLimiter(RateLimiterConfigurator.ConfigureRateLimiter);
+        builder.Services.AddCors();
         
         var app = builder.Build();
 
@@ -53,7 +33,10 @@ class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        app.UseRateLimiter();
 
+        app.UseCors(CorsConfigurator.ConfigureCors); // AllowCredentials() niet samen met AllowAnyOrigin()
+        
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
