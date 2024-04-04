@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Jogging.Infrastructure.Models;
+﻿namespace Jogging.Rest.DTOs;
 
 public class RegistrationDTO
 {
-    [Key]
     public int Id { get; set; }
 
     public short? RunNumber { get; set; }

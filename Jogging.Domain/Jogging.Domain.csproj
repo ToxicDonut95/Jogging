@@ -7,10 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Jogging.Contracts\Jogging.Contracts.csproj" />
+      <ProjectReference Include="..\Jogging.Infrastructure\Jogging.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
       <PackageReference Include="postgrest-csharp" Version="3.5.1" />
     </ItemGroup>
 

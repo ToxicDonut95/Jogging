@@ -4,13 +4,13 @@ using Jogging.Infrastructure.Interfaces;
 
 namespace Jogging.Domain.DomeinControllers
 {
-    public class PersonsController
+    public class PersonsManager
     {
         IAuthenticationRepo _authRepo;
         IMapper _mapper;
         public PersonDOM LoggedInPerson { get; private set; }
 
-        public PersonsController(IAuthenticationRepo authrepo, IMapper mapper)
+        public PersonsManager(IAuthenticationRepo authrepo, IMapper mapper)
         {
             _authRepo = authrepo;
             _mapper = mapper;

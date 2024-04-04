@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Jogging.Infrastructure\Jogging.Infrastructure.csproj" />
+      <ProjectReference Include="..\Jogging.Domain\Jogging.Domain.csproj" />
     </ItemGroup>
 
 </Project>

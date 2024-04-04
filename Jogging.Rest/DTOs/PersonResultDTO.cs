@@ -1,9 +1,9 @@
-﻿namespace Jogging.Infrastructure.Models;
+﻿namespace Jogging.Rest.DTOs;
 
-public class PersonResult
+public class PersonResultDTO
 {
     public int PersonId { get; set; }
     public PersonDTO Person { get; set; }
     public int ResultId { get; set; }
-    public Registration Registration { get; set; }
+    public RegistrationDTO Registration { get; set; }
 }

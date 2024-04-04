@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Jogging.Domain;
-using Jogging.Rest.DTO;
+using Jogging.Domain.Models;
+using Jogging.Infrastructure.Models;
+using Jogging.Rest.DTOs;
 
 namespace Jogging.Rest.Mapping
 {
@@ -8,7 +9,8 @@ namespace Jogging.Rest.Mapping
     {
         public MappingConfig()
         {
-            CreateMap<WeatherForecast, WeatherForecastDTO>().ReverseMap();
+            CreateMap<PersonDOM, PersonDTO>().ReverseMap();
+            CreateMap<Person, PersonDOM>().ReverseMap();
         }
     }
 }

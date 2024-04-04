@@ -15,5 +15,5 @@ public class CompetitionDOM
     public int? AddressId { get; set; }
     public AddressDOM Address { get; set; }
 
-    public List<CompetitionPerCategory> CompetitionPerCategories { get; set; }
+    public List<CompetitionPerCategoryDOM> CompetitionPerCategories { get; set; }
 }

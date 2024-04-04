@@ -7,6 +7,6 @@
         public string Password { get; set; }
         public char Rechten { get; set; }
         public int PersoonId { get; set; }
-        public Persoon persoon { get; set; }
+        public PersoonDOM persoon { get; set; }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Jogging.Infrastructure.Models;
+﻿namespace Jogging.Rest.DTOs;
 
 public class UserDTO
 {
-    
+
 }
