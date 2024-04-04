@@ -9,6 +9,6 @@
         public string? IBANNummer { get; set; }
         public long SchoolId { get; set; }
         public long AdressId { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
     }
 }
