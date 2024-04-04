@@ -13,7 +13,7 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
         {
             _client = client;
         }
-        public Person Authenticate(string email, string psswd)
+        public Person? Authenticate(string email, string psswd)
         {
             var session = _client.Auth.SignIn(email, psswd);
             var userid = session.Result.User.Id;
