@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Postgrest.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Jogging.Infrastructure.Models
 {
-    public class Person
+    public class Person : BaseModel
     {
         [Key]
         public int Id { get; set; }
@@ -27,6 +28,6 @@ namespace Jogging.Infrastructure.Models
         public int? AddressId { get; set; }
         public Address Address { get; set; }
 
-        public Guid? UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

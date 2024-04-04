@@ -1,11 +1,17 @@
 ﻿using Jogging.Contracts.Interfaces.RepoInterfaces;
 using Jogging.Infrastructure.Models;
-
+using Supabase;
 namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 {
     internal class PersonRepo : IGenericRepo<Person>
     {
-        //SupabaseClient _client;
+        Client _client;
+
+        public PersonRepo(Client client)
+        {
+            _client = client;
+        }
+
         public void Add(Person item)
         {
             throw new NotImplementedException();

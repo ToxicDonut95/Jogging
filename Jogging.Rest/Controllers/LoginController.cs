@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Jogging.Domain.DomeinControllers;
-using Jogging.Domain.Models;
 using Jogging.Rest.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +15,14 @@ public class LoginController : ControllerBase
 {
     #region Props
 
-    PersonsController _personDomein;
+    PersonsManager _personDomein;
     IMapper _mapper;
 
     #endregion
 
     #region CTor
 
-    public LoginController(PersonsController personDomein, IMapper mapper)
+    public LoginController(PersonsManager personDomein, IMapper mapper)
     {
         _personDomein = personDomein;
         _mapper = mapper;
@@ -38,9 +37,9 @@ public class LoginController : ControllerBase
     #region POST
 
     [HttpPost]
-    public ActionResult<bool>? LogIn([FromBody] PersonDTO person)
+    public ActionResult<bool>? LogIn([FromBody] LogInDTO person)
     {
-        return _personDomein.LogIn(_mapper.Map<PersonDOM>(person));
+        return _personDomein.LogIn(person.email, person.password);
     }
 
     #endregion

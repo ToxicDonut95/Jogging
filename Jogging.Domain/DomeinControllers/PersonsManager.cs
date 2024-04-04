@@ -1,25 +1,24 @@
 ﻿using AutoMapper;
-using Jogging.Domain.Interfaces;
 using Jogging.Domain.Models;
-using Jogging.Infrastructure.Models;
+using Jogging.Infrastructure.Interfaces;
 
 namespace Jogging.Domain.DomeinControllers
 {
     public class PersonsController
     {
-        Irepo<Person> _personRepo;
+        IAuthenticationRepo _authRepo;
         IMapper _mapper;
         public PersonDOM LoggedInPerson { get; private set; }
 
-        public PersonsController(Irepo<Person> personRepo, IMapper mapper)
+        public PersonsController(IAuthenticationRepo authrepo, IMapper mapper)
         {
-            _personRepo = personRepo;
+            _authRepo = authrepo;
             _mapper = mapper;
         }
 
-        public bool LogIn(PersonDOM person)
+        public bool LogIn(string email, string password)
         {
-            LoggedInPerson = _mapper.Map<PersonDOM>(_personRepo.FindOrDefault(_mapper.Map<Person>(person)));
+            LoggedInPerson = _mapper.Map<PersonDOM>(_authRepo.Authenticate(email, password));
             if (LoggedInPerson == null)
             {
                 return false;

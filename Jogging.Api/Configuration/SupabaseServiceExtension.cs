@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Jogging.Infrastructure.Repositories;
 using Supabase;
-using System;
-using Jogging.Infrastructure.Repositories;
 
 namespace Jogging.Api.Configuration
 {
