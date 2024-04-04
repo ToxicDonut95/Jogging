@@ -2,7 +2,7 @@
 
 namespace Jogging.Infrastructure.Models;
 
-public class School
+public class AgeCategory
 {
     [Key]
     public int Id { get; set; }
@@ -11,5 +11,6 @@ public class School
     [StringLength(100)]
     public string Name { get; set; }
 
-    public List<Person> People { get; set; }
+    public int MinimumAge { get; set; }
+    public int MaximumAge { get; set; }
 }
