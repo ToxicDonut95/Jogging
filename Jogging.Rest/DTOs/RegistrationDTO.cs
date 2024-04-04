@@ -2,7 +2,7 @@
 
 namespace Jogging.Infrastructure.Models;
 
-public class Registration
+public class RegistrationDTO
 {
     [Key]
     public int Id { get; set; }
@@ -12,5 +12,5 @@ public class Registration
     public DateTime? FinishTime { get; set; }
 
     public int CompetitionPerCategoryId { get; set; }
-    public CompetitionPerCategory CompetitionPerCategory { get; set; }
+    public CompetitionPerCategoryDTO CompetitionPerCategory { get; set; }
 }

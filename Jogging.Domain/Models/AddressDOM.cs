@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Jogging.Infrastructure.Models;
+namespace Jogging.Domain.Models;
 
-public class Address
+public class AddressDOM
 {
     [Key]
     public int Id { get; set; }
     public string Street { get; set; }
     public string City { get; set; }
 
-    public List<Person> People { get; set; }
-    public List<Competition> Competitions { get; set; }
+    public List<PersonDOM> People { get; set; }
+    public List<CompetitionDOM> Competitions { get; set; }
 }

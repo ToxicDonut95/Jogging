@@ -3,7 +3,7 @@ using Postgrest.Models;
 
 namespace Jogging.Domain.Models;
 
-public class City: BaseModel
+public class CityDOM: BaseModel
 {
         [PrimaryKey("id", false)]
         public int Id { get; set; }

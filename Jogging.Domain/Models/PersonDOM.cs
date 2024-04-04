@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Jogging.Infrastructure.Models
+namespace Jogging.Domain.Models
 {
-    public class Person
+    public class PersonDOM
     {
         [Key]
         public int Id { get; set; }
@@ -22,10 +22,10 @@ namespace Jogging.Infrastructure.Models
         public string IBANNumber { get; set; }
 
         public int? SchoolId { get; set; }
-        public School School { get; set; }
+        public SchoolDOM School { get; set; }
 
         public int? AddressId { get; set; }
-        public Address Address { get; set; }
+        public AddressDOM Address { get; set; }
 
         public Guid? UserId { get; set; }
     }

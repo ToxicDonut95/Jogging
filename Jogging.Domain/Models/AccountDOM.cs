@@ -1,6 +1,6 @@
 ﻿namespace Jogging.Domain.Models
 {
-    public class Account
+    public class AccountDOM
     {
         public int Id { get; set; }
         public string Email { get; set; }

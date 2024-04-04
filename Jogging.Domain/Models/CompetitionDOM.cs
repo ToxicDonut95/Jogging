@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Jogging.Infrastructure.Models;
+namespace Jogging.Domain.Models;
 
-public class Competition
+public class CompetitionDOM
 {
     [Key]
     public int Id { get; set; }
@@ -13,7 +13,7 @@ public class Competition
     public DateTime? Date { get; set; }
 
     public int? AddressId { get; set; }
-    public Address Address { get; set; }
+    public AddressDOM Address { get; set; }
 
     public List<CompetitionPerCategory> CompetitionPerCategories { get; set; }
 }

@@ -1,10 +1,8 @@
-﻿using Assignment.Domain.Helpers;
-using AutoMapper;
-using Jogging.Domain.Interfaces;
+﻿using AutoMapper;
+using Jogging.Domain.DomeinControllers;
 using Jogging.Domain.Models;
-using Microsoft.AspNetCore.Http;
+using Jogging.Rest.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Jogging.Rest.Controllers;
 
@@ -18,16 +16,16 @@ public class LoginController : ControllerBase
 {
     #region Props
 
-    Irepo<Account> _accountRepo;
+    PersonsController _personDomein;
     IMapper _mapper;
 
     #endregion
 
     #region CTor
 
-    public LoginController(Irepo<Account> accountRepo, IMapper mapper)
+    public LoginController(PersonsController personDomein, IMapper mapper)
     {
-        _accountRepo = accountRepo;
+        _personDomein = personDomein;
         _mapper = mapper;
     }
 
@@ -35,62 +33,23 @@ public class LoginController : ControllerBase
 
     #region GET
 
-    [HttpGet]
-    public ActionResult<Account> GetAll([FromQuery] QueryStringParameters parameters)
-    {
-        var emps = _accountRepo.GetAll(parameters);
-
-        var metaData = new
-        {
-            emps.TotalCount,
-            emps.PageSize,
-            emps.CurrentPage,
-            emps.TotalPages,
-            emps.HasNext,
-            emps.HasPrevious
-        };
-
-        Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metaData));
-
-        return Ok(emps);
-    }
-
-
-    [HttpGet("{id}")]
-    public ActionResult<Account> Get(int id)
-    {
-        return Ok(_accountRepo.GetById(id));
-    }
-
     #endregion
 
     #region POST
 
     [HttpPost]
-    public ActionResult<Account>? Post([FromBody] Account account)
+    public ActionResult<bool>? LogIn([FromBody] PersonDTO person)
     {
-        throw new NotImplementedException();
+        return _personDomein.LogIn(_mapper.Map<PersonDOM>(person));
     }
 
     #endregion
 
     #region PUT
 
-    [HttpPut]
-    public ActionResult<bool> Put([FromBody] Account account)
-    {
-        throw new NotImplementedException();
-    }
-
     #endregion
 
     #region DELETE
-
-    [HttpDelete]
-    public ActionResult<bool> Delete([FromBody] Account account)
-    {
-        throw new NotImplementedException();
-    }
 
     #endregion
 }

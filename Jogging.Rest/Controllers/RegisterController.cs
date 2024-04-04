@@ -1,6 +1,6 @@
-﻿using Assignment.Domain.Helpers;
-using AutoMapper;
+﻿using AutoMapper;
 using Azure;
+using Jogging.Domain.Helpers;
 using Jogging.Domain.Interfaces;
 using Jogging.Domain.Models;
 using Microsoft.AspNetCore.Http;
@@ -19,14 +19,14 @@ public class RegisterController : ControllerBase
 {
     #region Props
 
-    Irepo<Account> _accountRepo;
+    Irepo<AccountDOM> _accountRepo;
     IMapper _mapper;
 
     #endregion
 
     #region CTor
 
-    public RegisterController(Irepo<Account> accountRepo, IMapper mapper)
+    public RegisterController(Irepo<AccountDOM> accountRepo, IMapper mapper)
     {
         _accountRepo = accountRepo;
         _mapper = mapper;
@@ -37,7 +37,7 @@ public class RegisterController : ControllerBase
     #region GET
 
     [HttpGet]
-    public ActionResult<Account> GetAll([FromQuery] QueryStringParameters parameters)
+    public ActionResult<AccountDOM> GetAll([FromQuery] QueryStringParameters parameters)
     {
         var emps = _accountRepo.GetAll(parameters);
 
@@ -58,7 +58,7 @@ public class RegisterController : ControllerBase
 
 
     [HttpGet("{id}")]
-    public ActionResult<Account> Get(int id)
+    public ActionResult<AccountDOM> Get(int id)
     {
         return Ok(_accountRepo.GetById(id));
     }
@@ -68,7 +68,7 @@ public class RegisterController : ControllerBase
     #region POST
 
     [HttpPost]
-    public ActionResult<Account>? Post([FromBody] Account account)
+    public ActionResult<AccountDOM>? Post([FromBody] AccountDOM account)
     {
         throw new NotImplementedException();
     }
@@ -78,7 +78,7 @@ public class RegisterController : ControllerBase
     #region PUT
 
     [HttpPut]
-    public ActionResult<bool> Put([FromBody] Account account)
+    public ActionResult<bool> Put([FromBody] AccountDOM account)
     {
         throw new NotImplementedException();
     }
@@ -88,7 +88,7 @@ public class RegisterController : ControllerBase
     #region DELETE
 
     [HttpDelete]
-    public ActionResult<bool> Delete([FromBody] Account account)
+    public ActionResult<bool> Delete([FromBody] AccountDOM account)
     {
         throw new NotImplementedException();
     }

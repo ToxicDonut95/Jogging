@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Jogging.Infrastructure.Models;
+namespace Jogging.Domain.Models;
 
-public class Registration
+public class RegistrationDOM
 {
     [Key]
     public int Id { get; set; }
@@ -12,5 +12,5 @@ public class Registration
     public DateTime? FinishTime { get; set; }
 
     public int CompetitionPerCategoryId { get; set; }
-    public CompetitionPerCategory CompetitionPerCategory { get; set; }
+    public CompetitionPerCategoryDOM CompetitionPerCategory { get; set; }
 }

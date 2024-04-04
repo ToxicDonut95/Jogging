@@ -1,5 +1,5 @@
-﻿using Assignment.Domain.Helpers;
-using AutoMapper;
+﻿using AutoMapper;
+using Jogging.Domain.Helpers;
 using Jogging.Domain.Interfaces;
 using Jogging.Domain.Models;
 using Microsoft.AspNetCore.Http;
@@ -16,11 +16,11 @@ namespace Jogging.Rest.Controllers;
 public class CompetitionSignInController: ControllerBase
 {
      #region Props
-            Irepo<Account> _accountRepo;
+            Irepo<AccountDOM> _accountRepo;
             IMapper _mapper;
             #endregion
             #region CTor
-            public CompetitionSignInController(Irepo<Account> accountRepo, IMapper mapper)
+            public CompetitionSignInController(Irepo<AccountDOM> accountRepo, IMapper mapper)
             {
                 _accountRepo = accountRepo;
                 _mapper = mapper;
@@ -28,7 +28,7 @@ public class CompetitionSignInController: ControllerBase
             #endregion
             #region GET
             [HttpGet]
-            public ActionResult<Account> GetAll([FromQuery] QueryStringParameters parameters)
+            public ActionResult<AccountDOM> GetAll([FromQuery] QueryStringParameters parameters)
             {
                 var emps = _accountRepo.GetAll(parameters);
     
@@ -49,7 +49,7 @@ public class CompetitionSignInController: ControllerBase
             
             
             [HttpGet("{id}")]
-            public ActionResult<Account> Get(int id)
+            public ActionResult<AccountDOM> Get(int id)
             {
                 return Ok(_accountRepo.GetById(id));
             }
@@ -58,7 +58,7 @@ public class CompetitionSignInController: ControllerBase
     
             #region POST
             [HttpPost]
-            public ActionResult<Account>? Post([FromBody] Account account)
+            public ActionResult<AccountDOM>? Post([FromBody] AccountDOM account)
             {
                 throw new NotImplementedException();
             }
@@ -67,7 +67,7 @@ public class CompetitionSignInController: ControllerBase
     
             #region PUT
             [HttpPut]
-            public ActionResult<bool> Put([FromBody] Account account)
+            public ActionResult<bool> Put([FromBody] AccountDOM account)
             {
                 throw new NotImplementedException();
             }
@@ -76,7 +76,7 @@ public class CompetitionSignInController: ControllerBase
     
             #region DELETE
             [HttpDelete]
-            public ActionResult<bool> Delete([FromBody] Account account)
+            public ActionResult<bool> Delete([FromBody] AccountDOM account)
             {
                 throw new NotImplementedException();
             }

@@ -1,4 +1,4 @@
-﻿namespace Assignment.Domain.Helpers
+﻿namespace Jogging.Domain.Helpers
 {
     public interface ISortHelper<T>
     {

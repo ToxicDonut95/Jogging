@@ -1,4 +1,4 @@
-﻿namespace Assignment.Domain.Helpers
+﻿namespace Jogging.Domain.Helpers
 {
     public class PagedList<T> : List<T>
     {
@@ -40,6 +40,6 @@
             var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             return new PagedList<T>(items, count, pageNumber, pageSize);
-        } 
+        }
     }
 }

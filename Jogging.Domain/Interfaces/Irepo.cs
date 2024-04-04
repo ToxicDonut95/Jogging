@@ -1,4 +1,4 @@
-﻿using Assignment.Domain.Helpers;
+﻿using Jogging.Domain.Helpers;
 
 namespace Jogging.Domain.Interfaces
 {
@@ -9,6 +9,8 @@ namespace Jogging.Domain.Interfaces
         T? Add(T entity);
         bool Update(T entity);
         bool Delete(T entity);
+        bool LogIn(T person);
+        T FindOrDefault(T person);
 
         /*
         Task<T> GetByIdAsync(int id);

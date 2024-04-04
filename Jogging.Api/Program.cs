@@ -1,5 +1,4 @@
 ﻿using Jogging.Api.Configuration;
-using Jogging.Api.ServiceExtensions;
 using Jogging.Infrastructure.Repositories;
 using Jogging.Rest.Mapping;
 using Microsoft.AspNetCore.Builder;

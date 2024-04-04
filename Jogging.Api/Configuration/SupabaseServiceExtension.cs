@@ -5,7 +5,7 @@ using Supabase;
 using System;
 using Jogging.Infrastructure.Repositories;
 
-namespace Jogging.Api.ServiceExtensions
+namespace Jogging.Api.Configuration
 {
     public static class SupabaseServiceExtension
     {
@@ -17,10 +17,10 @@ namespace Jogging.Api.ServiceExtensions
                 throw new InvalidOperationException("Supabase configuration is missing.");
             }
 
-            Supabase.Client supabaseClient = null;
+            Client supabaseClient = null;
             try
             {
-                supabaseClient = new Supabase.Client(supabaseConfiguration.SupabaseUrl, supabaseConfiguration.SupabaseKey);
+                supabaseClient = new Client(supabaseConfiguration.SupabaseUrl, supabaseConfiguration.SupabaseKey);
             }
             catch (Exception ex)
             {
