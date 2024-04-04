@@ -3,7 +3,7 @@ using Jogging.Infrastructure.Models;
 using Supabase;
 namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 {
-    internal class PersonRepo : IGenericRepo<Person>
+    public class PersonRepo : IGenericRepo<Person>
     {
         Client _client;
 

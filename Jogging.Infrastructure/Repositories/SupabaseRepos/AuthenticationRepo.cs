@@ -4,7 +4,7 @@ using Supabase;
 
 namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 {
-    internal class AuthenticationRepo : IAuthenticationRepo
+    public class AuthenticationRepo : IAuthenticationRepo
     {
         Client _client;
 
@@ -16,6 +16,10 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
         public Person? Authenticate(string email, string psswd)
         {
             var session = _client.Auth.SignIn(email, psswd);
+            if (!session.IsCompletedSuccessfully)
+            {
+                return null;
+            }
             var userid = session.Result.User.Id;
             var person = _client.From<Person>().Where(x => x.UserId == userid).Single().Result;
             return person;

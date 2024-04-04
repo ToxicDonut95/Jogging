@@ -16,12 +16,18 @@ class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddSupabase(builder.Configuration);
-        builder.Services.AddRepoServices(builder.Configuration);
+        builder.Services.AddRepoServices();
+        builder.Services.AddDomeinManagerServices();
         builder.Services.AddRateLimiter(RateLimiterConfigurator.ConfigureRateLimiter);
         builder.Services.AddCors();
 
         var app = builder.Build();
 
+        app.UseCors(cors => cors
+                //.SetIsOriginAllowed(origin => true)
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {

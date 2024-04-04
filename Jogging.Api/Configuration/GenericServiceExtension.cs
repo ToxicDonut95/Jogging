@@ -1,14 +1,21 @@
-﻿namespace Jogging.Api.Configuration
+﻿using Jogging.Contracts.Interfaces.RepoInterfaces;
+using Jogging.Domain.DomeinControllers;
+using Jogging.Infrastructure.Interfaces;
+using Jogging.Infrastructure.Models;
+using Jogging.Infrastructure.Repositories.SupabaseRepos;
+
+namespace Jogging.Api.Configuration
 {
     public static class GenericServiceExtension
     {
-        public static void AddRepoServices(this IServiceCollection services, IConfiguration configuration)
+        public static void AddRepoServices(this IServiceCollection services)
         {
-            throw new NotImplementedException();
+            services.AddScoped<IAuthenticationRepo, AuthenticationRepo>();
+            services.AddScoped<IGenericRepo<Person>, PersonRepo>();
         }
-        public static void AddMapping(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDomeinManagerServices(this IServiceCollection services)
         {
-            throw new NotImplementedException();
+            services.AddScoped<PersonsManager>();
         }
     }
 }

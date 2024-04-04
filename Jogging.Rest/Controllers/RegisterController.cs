@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using Azure;
-using Jogging.Domain.Helpers;
-using Jogging.Domain.Interfaces;
-using Jogging.Domain.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Jogging.Rest.Controllers;
 
@@ -17,81 +10,81 @@ namespace Jogging.Rest.Controllers;
 #endif
 public class RegisterController : ControllerBase
 {
-    #region Props
+    //#region Props
 
-    Irepo<AccountDOM> _accountRepo;
-    IMapper _mapper;
+    //Irepo<AccountDOM> _accountRepo;
+    //IMapper _mapper;
 
-    #endregion
+    //#endregion
 
-    #region CTor
+    //#region CTor
 
-    public RegisterController(Irepo<AccountDOM> accountRepo, IMapper mapper)
-    {
-        _accountRepo = accountRepo;
-        _mapper = mapper;
-    }
+    //public RegisterController(Irepo<AccountDOM> accountRepo, IMapper mapper)
+    //{
+    //    _accountRepo = accountRepo;
+    //    _mapper = mapper;
+    //}
 
-    #endregion
+    //#endregion
 
-    #region GET
+    //#region GET
 
-    [HttpGet]
-    public ActionResult<AccountDOM> GetAll([FromQuery] QueryStringParameters parameters)
-    {
-        var emps = _accountRepo.GetAll(parameters);
+    //[HttpGet]
+    //public ActionResult<AccountDOM> GetAll([FromQuery] QueryStringParameters parameters)
+    //{
+    //    var emps = _accountRepo.GetAll(parameters);
 
-        var metaData = new
-        {
-            emps.TotalCount,
-            emps.PageSize,
-            emps.CurrentPage,
-            emps.TotalPages,
-            emps.HasNext,
-            emps.HasPrevious
-        };
-        
-        Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metaData));
+    //    var metaData = new
+    //    {
+    //        emps.TotalCount,
+    //        emps.PageSize,
+    //        emps.CurrentPage,
+    //        emps.TotalPages,
+    //        emps.HasNext,
+    //        emps.HasPrevious
+    //    };
 
-        return Ok(emps);
-    }
+    //    Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metaData));
+
+    //    return Ok(emps);
+    //}
 
 
-    [HttpGet("{id}")]
-    public ActionResult<AccountDOM> Get(int id)
-    {
-        return Ok(_accountRepo.GetById(id));
-    }
+    //[HttpGet("{id}")]
+    //public ActionResult<AccountDOM> Get(int id)
+    //{
+    //    return Ok(_accountRepo.GetById(id));
+    //}
 
-    #endregion
+    //#endregion
 
-    #region POST
+    //#region POST
 
-    [HttpPost]
-    public ActionResult<AccountDOM>? Post([FromBody] AccountDOM account)
-    {
-        throw new NotImplementedException();
-    }
+    //[HttpPost]
+    //public ActionResult<AccountDOM>? Post([FromBody] AccountDOM account)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    #endregion
+    //#endregion
 
-    #region PUT
+    //#region PUT
 
-    [HttpPut]
-    public ActionResult<bool> Put([FromBody] AccountDOM account)
-    {
-        throw new NotImplementedException();
-    }
+    //[HttpPut]
+    //public ActionResult<bool> Put([FromBody] AccountDOM account)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    #endregion
+    //#endregion
 
-    #region DELETE
+    //#region DELETE
 
-    [HttpDelete]
-    public ActionResult<bool> Delete([FromBody] AccountDOM account)
-    {
-        throw new NotImplementedException();
-    }
+    //[HttpDelete]
+    //public ActionResult<bool> Delete([FromBody] AccountDOM account)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    #endregion
+    //#endregion
 }
