@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Jogging.Rest.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
+
 #if ProducesConsumes
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
 #endif
+[Route("api/[controller]")]
+[ApiController]
 public class LoginController : ControllerBase
 {
     #region Props
@@ -21,7 +22,6 @@ public class LoginController : ControllerBase
     #endregion
 
     #region CTor
-
     public LoginController(PersonsManager personDomein, IMapper mapper)
     {
         _personDomein = personDomein;
@@ -39,7 +39,16 @@ public class LoginController : ControllerBase
     [HttpPost]
     public ActionResult<bool>? LogIn([FromBody] LogInDTO person)
     {
-        return _personDomein.LogIn(person.email, person.password);
+        try
+        {
+            return Ok(_personDomein.LogIn(person.email, person.password));
+        }
+        catch (Exception)
+        {
+
+            return BadRequest(false);
+        }
+
     }
 
     #endregion

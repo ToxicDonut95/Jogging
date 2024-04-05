@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Jogging.Rest.Controllers;
-[Route("api/[controller]")]
-[ApiController]
+
 #if ProducesConsumes
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
 #endif
+[Route("api/[controller]")]
+[ApiController]
 public class CompetitionSignInController : ControllerBase
 {
     //#region Props

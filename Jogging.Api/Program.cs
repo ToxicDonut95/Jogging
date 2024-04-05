@@ -11,16 +11,18 @@ class Program
 
         // Add services to the container.
         builder.Services.AddAutoMapper(typeof(MappingConfig));
-        builder.Services.AddControllers();
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+
+        builder.Services.AddControllers();
         builder.Services.AddSupabase(builder.Configuration);
         builder.Services.AddRepoServices();
         builder.Services.AddDomeinManagerServices();
+
         builder.Services.AddRateLimiter(RateLimiterConfigurator.ConfigureRateLimiter);
         builder.Services.AddCors();
-
+        builder.Services.AddSwaggerGen();
         var app = builder.Build();
 
         app.UseCors(cors => cors
@@ -32,7 +34,10 @@ class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "joggingapi v1");
+            });
         }
         app.UseRateLimiter();
 
