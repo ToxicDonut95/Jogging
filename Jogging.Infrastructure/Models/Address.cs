@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Postgrest.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Jogging.Infrastructure.Models;
 
-public class Address
+public class Address : BaseModel
 {
     [Key]
     public int Id { get; set; }

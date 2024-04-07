@@ -29,7 +29,8 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 
         public IEnumerable<Person> GetAll()
         {
-            throw new NotImplementedException();
+            var persons = _client.From<Person>().Get().Result.Models;
+            return persons;
             //use pagedList helper klasse in domein
         }
 
