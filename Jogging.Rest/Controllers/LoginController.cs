@@ -32,6 +32,8 @@ public class LoginController : ControllerBase
 
     #region GET
 
+
+
     #endregion
 
     #region POST
@@ -53,6 +55,10 @@ public class LoginController : ControllerBase
             return BadRequest(false);
         }
     }
+    //public async Task<ActionResult<bool>> LogOut([FromBody] LogInDTO person)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     #endregion
 
