@@ -1,8 +1,9 @@
 ﻿using Postgrest.Models;
 using System.ComponentModel.DataAnnotations;
+using Postgrest.Attributes;
 
 namespace Jogging.Infrastructure.Models;
-
+[Table("Address")]
 public class Address : BaseModel
 {
     [Key]

@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Postgrest.Attributes;
 
 namespace Jogging.Infrastructure.Models;
 
+[Table("Registration")]
 public class Registration
 {
     [Key]

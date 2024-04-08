@@ -17,6 +17,7 @@ namespace Jogging.Rest.Controllers
         #endregion
 
         #region CTor
+
         public PersonsController(PersonsManager personDomein, IMapper mapper)
         {
             _personDomein = personDomein;
@@ -32,18 +33,18 @@ namespace Jogging.Rest.Controllers
         #region POST
 
         [HttpGet]
-        public ActionResult<IEnumerable<PersonDTO>>? Getall()
+        public async Task<ActionResult<IEnumerable<PersonDTO>>?> GetAll()
         {
             try
             {
-                return Ok(_personDomein.GetAll().Select(person => _mapper.Map<PersonDTO>(person)));
+                var persons = await _personDomein.GetAllAsync();
+                var personDtoIEnumerable = _mapper.Map<IEnumerable<PersonDTO>>(persons);
+                return Ok(personDtoIEnumerable);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-
                 return NotFound(null);
             }
-
         }
 
         #endregion

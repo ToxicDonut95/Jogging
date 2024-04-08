@@ -27,11 +27,10 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Person> GetAll()
+        public async Task<IEnumerable<Person>> GetAllAsync()
         {
-            var persons = _client.From<Person>().Get().Result.Models;
-            return persons;
-            //use pagedList helper klasse in domein
+            var result = await _client.From<Person>().Get();
+            return result.Models;
         }
 
         public void Update(Person item)

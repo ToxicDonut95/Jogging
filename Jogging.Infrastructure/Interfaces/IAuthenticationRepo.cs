@@ -4,6 +4,7 @@ namespace Jogging.Infrastructure.Interfaces
 {
     public interface IAuthenticationRepo
     {
-        Person Authenticate(string email, string psswd);
+        Task<Person?> AuthenticateAsync(string email, string password);
+        Task<Person?> SignUpAsync(string email, string password);
     }
 }

@@ -1,5 +1,8 @@
-﻿namespace Jogging.Infrastructure.Models;
+﻿using Postgrest.Attributes;
 
+namespace Jogging.Infrastructure.Models;
+
+[Table("PersonResult")]
 public class PersonResult
 {
     public int PersonId { get; set; }

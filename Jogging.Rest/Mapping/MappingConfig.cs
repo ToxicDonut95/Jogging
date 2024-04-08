@@ -11,6 +11,8 @@ namespace Jogging.Rest.Mapping
         {
             CreateMap<PersonDOM, PersonDTO>().ReverseMap();
             CreateMap<Person, PersonDOM>().ReverseMap();
+            CreateMap<Task<IEnumerable<Person>>, Task<IEnumerable<PersonDOM>>>().ReverseMap();
+            CreateMap<Task<IEnumerable<PersonDOM>>, IEnumerable<PersonDTO>>().ReverseMap();
         }
     }
 }

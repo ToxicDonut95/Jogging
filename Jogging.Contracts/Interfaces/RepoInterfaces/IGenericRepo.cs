@@ -4,7 +4,7 @@
     {
         //crud
         void Add(T item);
-        IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAllAsync();
         T Get(int id);
         void Update(T item);
         void Delete(T item);

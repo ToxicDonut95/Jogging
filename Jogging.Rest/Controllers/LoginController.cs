@@ -16,15 +16,15 @@ public class LoginController : ControllerBase
 {
     #region Props
 
-    PersonsManager _personDomein;
-    IMapper _mapper;
+    private readonly PersonsManager _personDomain;
+    private readonly IMapper _mapper;
 
     #endregion
 
     #region CTor
-    public LoginController(PersonsManager personDomein, IMapper mapper)
+    public LoginController(PersonsManager personDomain, IMapper mapper)
     {
-        _personDomein = personDomein;
+        _personDomain = personDomain;
         _mapper = mapper;
     }
 
@@ -37,18 +37,21 @@ public class LoginController : ControllerBase
     #region POST
 
     [HttpPost]
-    public ActionResult<bool>? LogIn([FromBody] LogInDTO person)
+    public async Task<ActionResult<bool>> LogInAsync([FromBody] LogInDTO person)
     {
         try
         {
-            return Ok(_personDomein.LogIn(person.email, person.password));
+            var success = await _personDomain.LogInAsync(person.email, person.password);
+            return Ok(success);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
-
+            if (exception.Message != null)
+            {
+                return BadRequest(exception.Message);
+            }
             return BadRequest(false);
         }
-
     }
 
     #endregion

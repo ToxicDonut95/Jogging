@@ -20,18 +20,37 @@ namespace Jogging.Domain.DomeinControllers
             _mapper = mapper;
         }
 
-        public bool LogIn(string email, string password)
+        public async Task<bool> LogInAsync(string email, string password)
         {
-            LoggedInPerson = _mapper.Map<PersonDOM>(_authRepo.Authenticate(email, password));
-            if (LoggedInPerson == null)
+            var loggedInPerson = _mapper.Map<PersonDOM>(await _authRepo.AuthenticateAsync(email, password));
+            if (loggedInPerson == null)
             {
                 return false;
             }
-            else return true;
+            else
+            {
+                LoggedInPerson = loggedInPerson;
+                return true;
+            }
         }
-        public IEnumerable<PersonDOM> GetAll()
+
+        public async Task<bool> SignUpAsync(string email, string password)
         {
-            return _personRepo.GetAll().Select(person => _mapper.Map<PersonDOM>(person));
+            var loggedInPerson = _mapper.Map<PersonDOM>(await _authRepo.SignUpAsync(email, password));
+            if (loggedInPerson == null)
+            {
+                return false;
+            }
+            else
+            {
+                LoggedInPerson = loggedInPerson;
+                return true;
+            }
+        }
+        
+        public async Task<IEnumerable<PersonDOM>> GetAllAsync()
+        {
+            return _mapper.Map<IEnumerable<PersonDOM>>(await _personRepo.GetAllAsync());
         }
     }
 }

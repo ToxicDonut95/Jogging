@@ -1,8 +1,10 @@
 ﻿using Postgrest.Models;
 using System.ComponentModel.DataAnnotations;
+using Postgrest.Attributes;
 
 namespace Jogging.Infrastructure.Models
 {
+    [Table("Person")]
     public class Person : BaseModel
     {
         [Key]
