@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Jogging.Api.Configuration;
 using Jogging.Domain.DomeinControllers;
 using Jogging.Rest.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace Jogging.Rest.Controllers
 {
@@ -31,10 +29,6 @@ namespace Jogging.Rest.Controllers
 
         #region GET
 
-        #endregion
-
-        #region POST
-
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<IEnumerable<PersonDTO>>?> GetAll()
@@ -50,6 +44,12 @@ namespace Jogging.Rest.Controllers
                 return NotFound(null);
             }
         }
+
+        #endregion
+
+        #region POST
+
+
 
         #endregion
 

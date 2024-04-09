@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Postgrest.Attributes;
+﻿using Postgrest.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Jogging.Infrastructure.Models;
 
@@ -18,12 +18,12 @@ public class CompetitionPerCategory
     public char Gender { get; set; }
 
     public int AgeCategoryId { get; set; }
-    public AgeCategory AgeCategory { get; set; }
+    //public AgeCategory AgeCategory { get; set; }
 
     public int CompetitionId { get; set; }
-    public Competition Competition { get; set; }
+    //public Competition Competition { get; set; }
 
     public DateTime? GunTime { get; set; }
 
-    public List<Registration> Registrations { get; set; }
+    //public List<Registration> Registrations { get; set; }
 }

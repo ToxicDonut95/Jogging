@@ -1,12 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Postgrest.Attributes;
+﻿using Postgrest.Attributes;
+using Postgrest.Models;
 
 namespace Jogging.Infrastructure.Models;
 
 [Table("Registration")]
-public class Registration
+public class Registration : BaseModel
 {
-    [Key]
     public int Id { get; set; }
 
     public short? RunNumber { get; set; }
@@ -14,5 +13,5 @@ public class Registration
     public DateTime? FinishTime { get; set; }
 
     public int CompetitionPerCategoryId { get; set; }
-    public CompetitionPerCategory CompetitionPerCategory { get; set; }
+    //public CompetitionPerCategory CompetitionPerCategory { get; set; }
 }

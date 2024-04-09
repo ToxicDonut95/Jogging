@@ -4,10 +4,13 @@
     {
         //crud
         void Add(T item);
-        Task<IEnumerable<T>> GetAllAsync();
-        T Get(int id);
-        void Update(T item);
-        void Delete(T item);
 
+        Task<IEnumerable<T>> GetAllAsync();
+
+        T Get(int id);
+
+        void Update(T item);
+
+        void Delete(T item);
     }
 }

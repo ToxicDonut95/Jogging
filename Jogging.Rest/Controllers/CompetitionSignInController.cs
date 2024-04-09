@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Jogging.Infrastructure.Interfaces;
+using Jogging.Infrastructure.Models;
+using Jogging.Rest.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Jogging.Rest.Controllers;
 
@@ -6,75 +10,43 @@ namespace Jogging.Rest.Controllers;
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
 #endif
+
 [Route("api/[controller]")]
 [ApiController]
 public class CompetitionSignInController : ControllerBase
 {
-    //#region Props
-    //       Irepo<AccountDOM> _accountRepo;
-    //       IMapper _mapper;
-    //       #endregion
-    //       #region CTor
-    //       public CompetitionSignInController(Irepo<AccountDOM> accountRepo, IMapper mapper)
-    //       {
-    //           _accountRepo = accountRepo;
-    //           _mapper = mapper;
-    //       }
-    //       #endregion
-    //       #region GET
-    //       [HttpGet]
-    //       public ActionResult<AccountDOM> GetAll([FromQuery] QueryStringParameters parameters)
-    //       {
-    //           var emps = _accountRepo.GetAll(parameters);
+    #region Props
 
-    //           var metaData = new
-    //           {
-    //               emps.TotalCount,
-    //               emps.PageSize,
-    //               emps.CurrentPage,
-    //               emps.TotalPages,
-    //               emps.HasNext,
-    //               emps.HasPrevious
-    //           };
+    private IRegistrationRepo _registrationRepo;
+    private IMapper _mapper;
 
-    //           Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metaData));
+    #endregion Props
 
-    //           return Ok(emps);
-    //       }
+    #region CTor
 
+    public CompetitionSignInController(IRegistrationRepo registrationRepo, IMapper mapper)
+    {
+        _registrationRepo = registrationRepo;
+        _mapper = mapper;
+    }
 
-    //       [HttpGet("{id}")]
-    //       public ActionResult<AccountDOM> Get(int id)
-    //       {
-    //           return Ok(_accountRepo.GetById(id));
-    //       }
+    #endregion CTor
 
-    //       #endregion
+    #region POST
 
-    //       #region POST
-    //       [HttpPost]
-    //       public ActionResult<AccountDOM>? Post([FromBody] AccountDOM account)
-    //       {
-    //           throw new NotImplementedException();
-    //       }
+    [HttpPost]
+    public async Task<ActionResult<bool>>? RegisterToContest([FromBody] RegistrationDTO registration)
+    {
+        //try
+        //{
+        await _registrationRepo.SigninToContestAsync(_mapper.Map<Registration>(registration), registration.PersonId);
+        return Ok(true);
+        //}
+        //catch (Exception ex)
+        //{
+        //    return BadRequest(false);
+        //}
+    }
 
-    //       #endregion
-
-    //       #region PUT
-    //       [HttpPut]
-    //       public ActionResult<bool> Put([FromBody] AccountDOM account)
-    //       {
-    //           throw new NotImplementedException();
-    //       }
-
-    //       #endregion
-
-    //       #region DELETE
-    //       [HttpDelete]
-    //       public ActionResult<bool> Delete([FromBody] AccountDOM account)
-    //       {
-    //           throw new NotImplementedException();
-    //       }
-
-    //       #endregion
+    #endregion POST
 }
