@@ -20,17 +20,17 @@ namespace Jogging.Domain.DomeinControllers
             _mapper = mapper;
         }
 
-        public async Task<bool> LogInAsync(string email, string password)
+        public async Task<PersonDOM?> LogInAsync(string email, string password)
         {
             var loggedInPerson = _mapper.Map<PersonDOM>(await _authRepo.AuthenticateAsync(email, password));
             if (loggedInPerson == null)
             {
-                return false;
+                return null;
             }
             else
             {
                 LoggedInPerson = loggedInPerson;
-                return true;
+                return loggedInPerson;
             }
         }
 

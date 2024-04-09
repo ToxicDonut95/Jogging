@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Jogging.Api.Configuration;
 using Jogging.Domain.DomeinControllers;
 using Jogging.Rest.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Jogging.Rest.Controllers
 {
@@ -11,16 +14,16 @@ namespace Jogging.Rest.Controllers
     {
         #region Props
 
-        PersonsManager _personDomein;
-        IMapper _mapper;
+        private readonly PersonsManager _personDomain;
+        private readonly IMapper _mapper;
 
         #endregion
 
         #region CTor
 
-        public PersonsController(PersonsManager personDomein, IMapper mapper)
+        public PersonsController(PersonsManager personDomain, IMapper mapper)
         {
-            _personDomein = personDomein;
+            _personDomain = personDomain;
             _mapper = mapper;
         }
 
@@ -33,11 +36,12 @@ namespace Jogging.Rest.Controllers
         #region POST
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<PersonDTO>>?> GetAll()
         {
             try
             {
-                var persons = await _personDomein.GetAllAsync();
+                var persons = await _personDomain.GetAllAsync();
                 var personDtoIEnumerable = _mapper.Map<IEnumerable<PersonDTO>>(persons);
                 return Ok(personDtoIEnumerable);
             }
