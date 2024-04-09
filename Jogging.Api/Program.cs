@@ -3,7 +3,7 @@ using Jogging.Rest.Mapping;
 
 namespace Jogging.Api;
 
-class Program
+internal class Program
 {
     public static void Main(string[] args)
     {
@@ -21,9 +21,12 @@ class Program
         builder.Services.AddDomeinManagerServices();
 
         builder.Services.AddRateLimiter(RateLimiterConfigurator.ConfigureRateLimiter);
+        builder.Services.AddXFrameSupress();
+
         builder.Services.AddCors();
         builder.Services.AddSwaggerGen();
         var app = builder.Build();
+        HelmetConfig.AddHsts(app, builder);
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -34,6 +37,8 @@ class Program
             });
         }
         app.UseRateLimiter();
+
+        app.UseHelmetHeaders();
 
         app.UseCors(CorsConfigurator.ConfigureCors); // AllowCredentials() niet samen met AllowAnyOrigin()
 

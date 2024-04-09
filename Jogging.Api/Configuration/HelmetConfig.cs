@@ -1,6 +1,6 @@
 ﻿namespace Jogging.Api.Configuration
 {
-    public class HelmetConfig
+    public static class HelmetConfig
     {
         private static Dictionary<string, string> headers = new Dictionary<string, string>() {
             {"X-Frame-Options", "DENY" },
@@ -12,28 +12,35 @@
             {"Content-Security-Policy", "default-src 'self'"}
         };
 
-        builder.Services.AddAntiforgery(options =>
+        public static void AddXFrameSupress(this IServiceCollection services)
         {
-            options.SuppressXFrameOptionsHeader = true;
-        });
-
-        // All pages should be served over https in production "Release" mode:
-        if (!builder.Environment.IsDevelopment())
-        {
-            app.UseHsts();
+            services.AddAntiforgery(options =>
+            {
+                options.SuppressXFrameOptionsHeader = true;
+            });
         }
 
-// Middleware to control headers...
-app.Use(async (context, next) =>
-{
-    foreach (var keyvalue in headers)
-    {
-        if (!context.Response.Headers.ContainsKey(keyvalue.Key))
+        public static void AddHsts(WebApplication app, WebApplicationBuilder builder)
         {
-            context.Response.Headers.Add(keyvalue.Key, keyvalue.Value);
+            if (!builder.Environment.IsDevelopment())
+            {
+                app.UseHsts();
+            }
         }
-    }
-    await next(context);
-});
+
+        public static void UseHelmetHeaders(this WebApplication app)
+        {
+            app.Use(async (context, next) =>
+            {
+                foreach (var keyvalue in headers)
+                {
+                    if (!context.Response.Headers.ContainsKey(keyvalue.Key))
+                    {
+                        context.Response.Headers.Add(keyvalue.Key, keyvalue.Value);
+                    }
+                }
+                await next(context);
+            });
+        }
     }
 }
