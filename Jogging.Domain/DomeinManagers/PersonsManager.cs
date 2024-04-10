@@ -47,10 +47,15 @@ namespace Jogging.Domain.DomeinControllers
                 return true;
             }
         }
-        
+
         public async Task<IEnumerable<PersonDOM>> GetAllAsync()
         {
             return _mapper.Map<IEnumerable<PersonDOM>>(await _personRepo.GetAllAsync());
+        }
+
+        public async Task CreatePerson(PersonDOM person)
+        {
+            _personRepo.Add(_mapper.Map<Person>(person));
         }
     }
 }

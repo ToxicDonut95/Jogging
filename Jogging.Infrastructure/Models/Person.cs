@@ -1,13 +1,13 @@
-﻿using Postgrest.Models;
+﻿using Postgrest.Attributes;
+using Postgrest.Models;
 using System.ComponentModel.DataAnnotations;
-using Postgrest.Attributes;
 
 namespace Jogging.Infrastructure.Models
 {
     [Table("Person")]
     public class Person : BaseModel
     {
-        [Key]
+        [PrimaryKey("Id", false)]
         public int Id { get; set; }
 
         [Required]

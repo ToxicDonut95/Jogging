@@ -7,7 +7,7 @@ namespace Jogging.Infrastructure.Models;
 public class Registration : BaseModel
 {
     [PrimaryKey("Id", false)]
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     [Column("RunNumber")]
     public short? RunNumber { get; set; }

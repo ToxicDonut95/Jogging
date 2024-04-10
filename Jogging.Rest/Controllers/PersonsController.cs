@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Jogging.Domain.DomeinControllers;
+using Jogging.Domain.Models;
 using Jogging.Rest.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +50,19 @@ namespace Jogging.Rest.Controllers
 
         #region POST
 
-
+        [HttpPost]
+        public async Task<ActionResult<bool>>? CreatePerson([FromBody] PersonDTO person)
+        {
+            //try
+            //{
+            await _personDomain.CreatePerson(_mapper.Map<PersonDOM>(person));
+            return Ok(true);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(false);
+            //}
+        }
 
         #endregion
 

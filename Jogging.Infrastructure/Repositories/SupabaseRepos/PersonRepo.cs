@@ -14,7 +14,7 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 
         public void Add(Person item)
         {
-            throw new NotImplementedException();
+            _client.From<Person>().Insert(item);
         }
 
         public void Delete(Person item)
