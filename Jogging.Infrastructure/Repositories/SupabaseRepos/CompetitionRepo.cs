@@ -17,6 +17,11 @@ public class CompetitionRepo : IGenericRepo<Competition>
         throw new NotImplementedException();
     }
 
+    public void AddAsync(Competition item)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<IQueryable<Competition>> GetAllAsync()
     {
         var result =  await _client.From<Competition>().Get();

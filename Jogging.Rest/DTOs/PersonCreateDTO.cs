@@ -1,6 +1,6 @@
 ﻿namespace Jogging.Rest.DTOs
 {
-    public class PersonDTO
+    public class PersonCreateDTO
     {
         public string LastName { get; set; }
         public string FirstName { get; set; }

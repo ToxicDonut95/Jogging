@@ -61,8 +61,9 @@ namespace Jogging.Rest.Controllers
         {
             //try
             //{
-            var result=_mapper.Map<PersonDTO>( await _personDomain.CreatePerson(_mapper.Map<PersonDOM>(person)));
-            return Ok(result);
+            /*var result=_mapper.Map<PersonDTO>( await _personDomain.CreatePerson(_mapper.Map<PersonDOM>(person)));
+            return Ok(result);*/
+            return Ok(true);
             //}
             //catch (Exception ex)
             //{
