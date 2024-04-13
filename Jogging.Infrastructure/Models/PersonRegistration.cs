@@ -6,8 +6,10 @@ namespace Jogging.Infrastructure.Models;
 [Table("PersonRegistration")]
 public class PersonRegistration : BaseModel
 {
+    [Column("PersonId")]
     public int PersonId { get; set; }
     //public Person Person { get; set; }
+    [Column("RegistrationId")]
     public int RegistrationId { get; set; }
     //public Registration Registration { get; set; }
 

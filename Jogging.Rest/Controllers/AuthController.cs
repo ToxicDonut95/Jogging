@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Jogging.Domain.Models;
 using Jogging.Infrastructure.Interfaces;
 
 namespace Jogging.Rest.Controllers
@@ -20,14 +21,14 @@ namespace Jogging.Rest.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly PersonsManager _personDomain;
+        private readonly AuthManager _authManager;
         private readonly IMapper _mapper;
         private readonly JwtConfiguration _configuration;
         private readonly ITokenBlacklistService _tokenBlacklistService;
 
-        public AuthController(PersonsManager personDomain, IMapper mapper, IOptions<JwtConfiguration> configuration, ITokenBlacklistService tokenBlacklistService)
+        public AuthController(AuthManager authManager, IMapper mapper, IOptions<JwtConfiguration> configuration, ITokenBlacklistService tokenBlacklistService)
         {
-            _personDomain = personDomain ?? throw new ArgumentNullException(nameof(personDomain));
+            _authManager = authManager ?? throw new ArgumentNullException(nameof(authManager));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _configuration = configuration?.Value ?? throw new ArgumentNullException(nameof(configuration));
             _tokenBlacklistService = tokenBlacklistService;
@@ -38,7 +39,7 @@ namespace Jogging.Rest.Controllers
         {
             try
             {
-                var success = await _personDomain.LogInAsync(person.email, person.password);
+                var success = await _authManager.LogInAsync(person.email, person.password);
                 if (success != null)
                 {
                     var jwtToken = JwtTokenUtil.Generate(_configuration); // Assuming success.UserId is the user's unique identifier
@@ -73,11 +74,31 @@ namespace Jogging.Rest.Controllers
         }
         
         [HttpPost("register")]
-        public async Task<ActionResult<bool>> RegisterAsync([FromBody] LogInDTO person)
+        public async Task<ActionResult<bool>> SignUpAsync([FromBody] SignUpDTO signUpDto)
         {
             try
             {
-                var success = await _personDomain.SignUpAsync(person.email, person.password);
+                if (signUpDto.person == null)
+                {
+                    return BadRequest("Person information is required.");
+                }
+
+                var personDOM = _mapper.Map<PersonDOM>(signUpDto.person);
+                var success = await _authManager.SignUpAsync(signUpDto.email, signUpDto.password, personDOM);
+                return Ok(success);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message ?? "An error occurred during sign up.");
+            }
+        }
+     
+        [HttpPost("request-password")]
+        public async Task<ActionResult<bool>> RequestPasswordAsync([FromBody] PasswordRequestDto person)
+        {
+            try
+            {
+                var success = await _authManager.RequestPasswordAsync(person.Email);
                 return Ok(success);
             }
             catch (Exception exception)

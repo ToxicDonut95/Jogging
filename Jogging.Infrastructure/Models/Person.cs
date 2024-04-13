@@ -1,35 +1,40 @@
-﻿using Postgrest.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+using Postgrest.Attributes;
 using Postgrest.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace Jogging.Infrastructure.Models
 {
-    [Table("Person")]
     public class Person : BaseModel
     {
-        [PrimaryKey("Id", false)]
+        [PrimaryKey]
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [Column("LastName")]
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [Column("FirstName")]
         public string FirstName { get; set; }
 
         [Required]
+        [Column("BirthDate")]
         public DateTime BirthDate { get; set; }
 
-        [StringLength(30)]
+        [Column("IBANNumber")]
         public string IBANNumber { get; set; }
 
+        [Column("SchoolId")]
         public int? SchoolId { get; set; }
+        [Reference(typeof(School), ReferenceAttribute.JoinType.Left)]
         public School School { get; set; }
 
+        [Column("AddressId")]
         public int? AddressId { get; set; }
+        [Reference(typeof(Address), ReferenceAttribute.JoinType.Left)]
         public Address Address { get; set; }
 
+        [Column("UserId")]
         public string UserId { get; set; }
     }
 }

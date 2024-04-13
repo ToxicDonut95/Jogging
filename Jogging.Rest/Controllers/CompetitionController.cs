@@ -1,79 +1,108 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Jogging.Contracts.Interfaces.RepoInterfaces;
+using Jogging.Domain.DomeinControllers;
+using Jogging.Domain.Helpers;
+using Jogging.Domain.Models;
+using Jogging.Infrastructure.Models;
+using Jogging.Rest.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
-namespace Jogging.Rest.Controllers;
-[Route("api/[controller]")]
-[ApiController]
+namespace Jogging.Rest.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
 #if ProducesConsumes
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
 #endif
-public class CompetitionController : ControllerBase
-{
-    //#region Props
-    //Irepo<AccountDOM> _accountRepo;
-    //IMapper _mapper;
-    //#endregion
-    //#region CTor
-    //public CompetitionController(Irepo<AccountDOM> accountRepo, IMapper mapper)
-    //{
-    //    _accountRepo = accountRepo;
-    //    _mapper = mapper;
-    //}
-    //#endregion
-    //#region GET
-    //[HttpGet]
-    //public ActionResult<AccountDOM> GetAll([FromQuery] QueryStringParameters parameters)
-    //{
-    //    var emps = _accountRepo.GetAll(parameters);
+    public class CompetitionController : ControllerBase
+    {
+        #region Props
 
-    //    var metaData = new
-    //    {
-    //        emps.TotalCount,
-    //        emps.PageSize,
-    //        emps.CurrentPage,
-    //        emps.TotalPages,
-    //        emps.HasNext,
-    //        emps.HasPrevious
-    //    };
+        private readonly CompetitionManager _competitionManager;
+        private readonly IMapper _mapper;
 
-    //    Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metaData));
+        #endregion
 
-    //    return Ok(emps);
-    //}
+        #region CTor
+
+        public CompetitionController(CompetitionManager competitionManager, IMapper mapper)
+        {
+            _competitionManager = competitionManager;
+            _mapper = mapper;
+        }
+
+        #endregion
+
+        #region GET
+
+        [HttpGet]
+        public async Task<ActionResult<PagedList<CompetitionDOM>>> GetAll([FromQuery] QueryStringParameters parameters)
+        {
+            try
+            {
+                var competitions = await _competitionManager.GetAll(parameters);
+
+                var metadata = new
+                {
+                    competitions.TotalCount,
+                    competitions.PageSize,
+                    competitions.CurrentPage,
+                    competitions.TotalPages,
+                    competitions.HasNext,
+                    competitions.HasPrevious
+                };
+
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+                
+                return Ok(competitions);
+            }
+            catch (Exception exception)
+            {
+                return NotFound(null);
+            }
+        }
 
 
-    //[HttpGet("{id}")]
-    //public ActionResult<AccountDOM> Get(int id)
-    //{
-    //    return Ok(_accountRepo.GetById(id));
-    //}
+        [HttpGet("{id}")]
+        public ActionResult<AccountDOM> Get(int id)
+        {
+            return Ok(_competitionManager.GetById(id));
+        }
 
-    //#endregion
+        #endregion
 
-    //#region POST
-    //[HttpPost]
-    //public ActionResult<AccountDOM>? Post([FromBody] AccountDOM account)
-    //{
-    //    throw new NotImplementedException();
-    //}
+        #region POST
 
-    //#endregion
+        [HttpPost]
+        public ActionResult<AccountDOM>? Post([FromBody] AccountDOM account)
+        {
+            throw new NotImplementedException();
+        }
 
-    //#region PUT
-    //[HttpPut]
-    //public ActionResult<bool> Put([FromBody] AccountDOM account)
-    //{
-    //    throw new NotImplementedException();
-    //}
+        #endregion
 
-    //#endregion
+        #region PUT
 
-    //#region DELETE
-    //[HttpDelete]
-    //public ActionResult<bool> Delete([FromBody] AccountDOM account)
-    //{
-    //    throw new NotImplementedException();
-    //}
+        [HttpPut]
+        public ActionResult<bool> Put([FromBody] AccountDOM account)
+        {
+            throw new NotImplementedException();
+        }
 
-    //#endregion
+        #endregion
+
+        #region DELETE
+
+        [HttpDelete]
+        public ActionResult<bool> Delete([FromBody] AccountDOM account)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
 }

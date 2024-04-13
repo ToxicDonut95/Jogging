@@ -12,12 +12,15 @@ namespace Jogging.Api.Configuration
         {
             services.AddScoped<IAuthenticationRepo, AuthenticationRepo>();
             services.AddScoped<IGenericRepo<Person>, PersonRepo>();
+            services.AddScoped<IGenericRepo<Competition>, CompetitionRepo>();
             services.AddScoped<IRegistrationRepo, RegistrationRepo>();
         }
 
-        public static void AddDomeinManagerServices(this IServiceCollection services)
+        public static void AddDomainManagerServices(this IServiceCollection services)
         {
             services.AddScoped<PersonsManager>();
+            services.AddScoped<AuthManager>();
+            services.AddScoped<CompetitionManager>();
         }
     }
 }

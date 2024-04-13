@@ -6,7 +6,7 @@ namespace Jogging.Infrastructure.Models;
 [Table("Registration")]
 public class Registration : BaseModel
 {
-    [PrimaryKey("Id", false)]
+    [PrimaryKey]
     public int Id { get; set; }
 
     [Column("RunNumber")]

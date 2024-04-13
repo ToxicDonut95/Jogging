@@ -1,8 +1,14 @@
-﻿namespace Jogging.Rest.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+using Postgrest.Attributes;
+
+namespace Jogging.Rest.DTOs;
 
 public class CompetitionDTO
 {
+    [PrimaryKey]
     public int Id { get; set; }
+    [Required]
+    [StringLength(100)]
     public string Name { get; set; }
     public DateTime? Date { get; set; }
 

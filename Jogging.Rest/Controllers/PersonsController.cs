@@ -37,6 +37,12 @@ namespace Jogging.Rest.Controllers
             try
             {
                 var persons = await _personDomain.GetAllAsync();
+        
+                if (persons == null || !persons.Any())
+                {
+                    return NotFound("No persons found.");
+                }
+
                 var personDtoIEnumerable = _mapper.Map<IEnumerable<PersonDTO>>(persons);
                 return Ok(personDtoIEnumerable);
             }

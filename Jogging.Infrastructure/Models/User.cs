@@ -1,6 +1,7 @@
-﻿namespace Jogging.Infrastructure.Models;
+﻿using Postgrest.Models;
 
-public class User
+namespace Jogging.Infrastructure.Models;
+
+public class User : BaseModel
 {
-    
 }

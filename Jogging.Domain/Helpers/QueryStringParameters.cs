@@ -1,9 +1,9 @@
 ﻿namespace Jogging.Domain.Helpers
 {
 
-    public abstract class QueryStringParameters
+    public class QueryStringParameters
     {
-        const int _maxPageSize = 10;
+        const int _maxPageSize = 100;
         public int PageNumber { get; set; } = 1;
 
         private int _pageSize = 10;

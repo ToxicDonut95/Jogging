@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Postgrest.Attributes;
+using Postgrest.Models;
 
 namespace Jogging.Infrastructure.Models;
 
 [Table("School")]
-public class School
+public class School: BaseModel
 {
-    [Key]
+    [PrimaryKey]
     public int Id { get; set; }
 
     [Required]
-    [StringLength(100)]
+    [Column("Name")]
     public string Name { get; set; }
 
+    [Reference(typeof(Person), ReferenceAttribute.JoinType.Left)]
     public List<Person> People { get; set; }
 }

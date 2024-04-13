@@ -5,7 +5,7 @@
         //crud
         void Add(T item);
 
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IQueryable<T>> GetAllAsync();
 
         T Get(int id);
 

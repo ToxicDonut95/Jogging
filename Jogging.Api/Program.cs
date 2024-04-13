@@ -26,7 +26,7 @@ internal class Program
         builder.Services.AddControllers();
         builder.Services.AddSupabase(builder.Configuration);
         builder.Services.AddRepoServices();
-        builder.Services.AddDomeinManagerServices();
+        builder.Services.AddDomainManagerServices();
 
         builder.Services.AddRateLimiter(RateLimiterConfigurator.ConfigureRateLimiter);
         builder.Services.AddXFrameSupress();

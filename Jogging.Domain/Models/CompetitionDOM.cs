@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Postgrest.Attributes;
 
 namespace Jogging.Domain.Models;
 
 public class CompetitionDOM
 {
-    [Key]
+    [PrimaryKey]
     public int Id { get; set; }
 
     [Required]

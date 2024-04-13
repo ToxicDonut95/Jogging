@@ -1,6 +1,7 @@
 ﻿using Jogging.Contracts.Interfaces.RepoInterfaces;
 using Jogging.Infrastructure.Models;
 using Supabase;
+
 namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 {
     public class PersonRepo : IGenericRepo<Person>
@@ -27,10 +28,12 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Person>> GetAllAsync()
+        public async Task<IQueryable<Person>> GetAllAsync()
         {
-            var result = await _client.From<Person>().Get();
-            return result.Models;
+            var result = await _client
+                .From<Person>()
+                .Get();
+            return result.Models.AsQueryable();
         }
 
         public void Update(Person item)
