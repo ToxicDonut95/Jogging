@@ -51,12 +51,12 @@ namespace Jogging.Rest.Controllers
         #region POST
 
         [HttpPost]
-        public async Task<ActionResult<bool>>? CreatePerson([FromBody] PersonDTO person)
+        public async Task<ActionResult<PersonDTO>>? CreatePerson([FromBody] PersonDTO person)
         {
             //try
             //{
-            await _personDomain.CreatePerson(_mapper.Map<PersonDOM>(person));
-            return Ok(true);
+            var result=_mapper.Map<PersonDTO>( await _personDomain.CreatePerson(_mapper.Map<PersonDOM>(person)));
+            return Ok(result);
             //}
             //catch (Exception ex)
             //{

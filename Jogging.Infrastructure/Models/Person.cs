@@ -11,25 +11,30 @@ namespace Jogging.Infrastructure.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [Column("LastName")]
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [Column("FirstName")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Column("BirthDate")]
         public DateTime BirthDate { get; set; }
 
-        [StringLength(30)]
+        [Column("IBANNumber")]
         public string IBANNumber { get; set; }
 
+        [Column("SchoolId")]
         public int? SchoolId { get; set; }
-        public School School { get; set; }
 
+        //public School School { get; set; }
+
+        [Column("AdressId")]
         public int? AddressId { get; set; }
-        public Address Address { get; set; }
 
+        //public Address Address { get; set; }
+
+        [Column("UserId")]
         public string UserId { get; set; }
     }
 }

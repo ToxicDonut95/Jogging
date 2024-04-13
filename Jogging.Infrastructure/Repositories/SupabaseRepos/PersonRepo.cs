@@ -16,6 +16,10 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
         {
             _client.From<Person>().Insert(item);
         }
+        public async void AddAsync(Person item)
+        {
+            await _client.From<Person>().Insert(item);
+        }
 
         public void Delete(Person item)
         {

@@ -8,9 +8,9 @@ namespace Jogging.Domain.DomeinControllers
 {
     public class PersonsManager
     {
-        IAuthenticationRepo _authRepo;
-        IGenericRepo<Person> _personRepo;
-        IMapper _mapper;
+        private IAuthenticationRepo _authRepo;
+        private IGenericRepo<Person> _personRepo;
+        private IMapper _mapper;
         public PersonDOM LoggedInPerson { get; private set; }
 
         public PersonsManager(IAuthenticationRepo authRepo, IGenericRepo<Person> personRepo, IMapper mapper)
@@ -55,7 +55,7 @@ namespace Jogging.Domain.DomeinControllers
 
         public async Task CreatePerson(PersonDOM person)
         {
-            _personRepo.Add(_mapper.Map<Person>(person));
+            _personRepo.AddAsync(_mapper.Map<Person>(person));
         }
     }
 }
