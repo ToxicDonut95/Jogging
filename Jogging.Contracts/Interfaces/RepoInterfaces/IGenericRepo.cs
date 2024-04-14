@@ -4,6 +4,7 @@
     {
         //crud
         void Add(T item);
+
         Task<T> AddAsync(T item);
 
         Task<IQueryable<T>> GetAllAsync();

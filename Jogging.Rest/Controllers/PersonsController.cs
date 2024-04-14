@@ -16,7 +16,7 @@ namespace Jogging.Rest.Controllers
         private readonly PersonsManager _personDomain;
         private readonly IMapper _mapper;
 
-        #endregion
+        #endregion Props
 
         #region CTor
 
@@ -26,7 +26,7 @@ namespace Jogging.Rest.Controllers
             _mapper = mapper;
         }
 
-        #endregion
+        #endregion CTor
 
         #region GET
 
@@ -37,7 +37,7 @@ namespace Jogging.Rest.Controllers
             try
             {
                 var persons = await _personDomain.GetAllAsync();
-        
+
                 if (persons == null || !persons.Any())
                 {
                     return NotFound("No persons found.");
@@ -52,18 +52,17 @@ namespace Jogging.Rest.Controllers
             }
         }
 
-        #endregion
+        #endregion GET
 
         #region POST
 
         [HttpPost]
-        public async Task<ActionResult<PersonDTO>>? CreatePerson([FromBody] PersonDTO person)
+        public async Task<ActionResult<int>>? CreatePerson([FromBody] PersonDTO person)
         {
             //try
             //{
-            /*var result=_mapper.Map<PersonDTO>( await _personDomain.CreatePerson(_mapper.Map<PersonDOM>(person)));
-            return Ok(result);*/
-            return Ok(true);
+            var result = await _personDomain.CreatePerson(_mapper.Map<PersonDOM>(person));
+            return Ok(result);
             //}
             //catch (Exception ex)
             //{
@@ -71,14 +70,6 @@ namespace Jogging.Rest.Controllers
             //}
         }
 
-        #endregion
-
-        #region PUT
-
-        #endregion
-
-        #region DELETE
-
-        #endregion
+        #endregion POST
     }
 }

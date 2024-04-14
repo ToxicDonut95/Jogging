@@ -6,7 +6,7 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 {
     public class PersonRepo : IGenericRepo<Person>
     {
-        Client _client;
+        private Client _client;
 
         public PersonRepo(Client client)
         {
@@ -17,7 +17,8 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
         {
             _client.From<Person>().Insert(item);
         }
-        public async Task<Person> AddAsync(Person item)
+
+        public async Task<int> AddAsync(Person item)
         {
             var addedPerson = await _client.From<Person>().Insert(item);
 

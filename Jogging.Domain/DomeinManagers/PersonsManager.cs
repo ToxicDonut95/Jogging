@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
 using Jogging.Contracts.Interfaces.RepoInterfaces;
 using Jogging.Domain.Models;
-using Jogging.Infrastructure.Interfaces;
 using Jogging.Infrastructure.Models;
 
 namespace Jogging.Domain.DomeinControllers
 {
     public class PersonsManager
     {
-        IGenericRepo<Person> _personRepo;
-        IMapper _mapper;
+        private IGenericRepo<Person> _personRepo;
+        private IMapper _mapper;
 
         public PersonsManager(IGenericRepo<Person> personRepo, IMapper mapper)
         {
@@ -22,9 +21,10 @@ namespace Jogging.Domain.DomeinControllers
             return _mapper.Map<IEnumerable<PersonDOM>>(await _personRepo.GetAllAsync());
         }
 
-        /*public async Task CreatePerson(PersonDOM person)
+        public async Task<int> CreatePerson(PersonDOM person)
         {
-            _personRepo.Add(_mapper.Map<Person>(person));
-        }*/
+            var result = _personRepo.AddAsync(_mapper.Map<Person>(person)).Result
+            return result.Id;
+        }
     }
 }
