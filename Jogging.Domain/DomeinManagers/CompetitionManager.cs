@@ -23,8 +23,15 @@ public class CompetitionManager
         return PagedList<CompetitionDOM>.ToPagedList(competitionsDto, parameters.PageNumber, parameters.PageSize);
     }
 
-    public object GetById(int id)
+    public async Task<CompetitionDOM> AddAsync(CompetitionDOM competition)
     {
-        throw new NotImplementedException();
+        var response = await _competitionRepo.AddAsync(_mapper.Map<Competition>(competition));
+        return _mapper.Map<CompetitionDOM>(response);
+    }
+
+    public async Task<CompetitionDOM> GetById(int id)
+    {
+        var response = await _competitionRepo.GetByIdAsync(id);
+        return _mapper.Map<CompetitionDOM>(response);
     }
 }

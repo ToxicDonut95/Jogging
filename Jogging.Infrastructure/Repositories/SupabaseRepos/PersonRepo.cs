@@ -17,9 +17,11 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
         {
             _client.From<Person>().Insert(item);
         }
-        public async void AddAsync(Person item)
+        public async Task<Person> AddAsync(Person item)
         {
-            await _client.From<Person>().Insert(item);
+            var addedPerson = await _client.From<Person>().Insert(item);
+
+            return addedPerson.Model;
         }
 
         public void Delete(Person item)
@@ -27,7 +29,7 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
             throw new NotImplementedException();
         }
 
-        public Person Get(int id)
+        public async Task<Person> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

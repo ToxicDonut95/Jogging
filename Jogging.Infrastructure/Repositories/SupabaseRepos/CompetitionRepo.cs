@@ -12,25 +12,41 @@ public class CompetitionRepo : IGenericRepo<Competition>
         _client = client;
     }
 
-    public void Add(Competition item)
+    public void Add(Competition competition)
     {
         throw new NotImplementedException();
     }
 
-    public void AddAsync(Competition item)
+    public async Task<Competition> AddAsync(Competition competition)
     {
-        throw new NotImplementedException();
+        var existingCompetition = await GetByIdAsync(competition.Id);
+
+        if (existingCompetition != null)
+        {
+            return existingCompetition;
+        }
+        
+        var response = await _client
+            .From<Competition>()
+            .Insert(competition);
+
+        return response.Model;
     }
 
     public async Task<IQueryable<Competition>> GetAllAsync()
     {
-        var result =  await _client.From<Competition>().Get();
+        var result = await _client.From<Competition>().Get();
         return result.Models.AsQueryable();
     }
 
-    public Competition Get(int id)
+    public async Task<Competition> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var existingCompetition = await _client
+            .From<Competition>()
+            .Where(c => c.Id == id)
+            .Get();
+
+        return existingCompetition.Model;
     }
 
     public void Update(Competition item)

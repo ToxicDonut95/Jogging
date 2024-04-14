@@ -8,12 +8,11 @@ public class CompetitionDTO
     [PrimaryKey]
     public int Id { get; set; }
     [Required]
-    [StringLength(100)]
     public string Name { get; set; }
     public DateTime? Date { get; set; }
 
     public int? AddressId { get; set; }
-    public AddressDTO Address { get; set; }
+    public AddressDTO? Address { get; set; }
 
-    public List<CompetitionPerCategoryDTO> CompetitionPerCategories { get; set; }
+    public List<CompetitionPerCategoryDTO>? CompetitionPerCategories { get; set; }
 }

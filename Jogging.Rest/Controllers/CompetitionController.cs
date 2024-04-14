@@ -68,9 +68,23 @@ namespace Jogging.Rest.Controllers
 
 
         [HttpGet("{id}")]
-        public ActionResult<AccountDOM> Get(int id)
+        public async Task<ActionResult<CompetitionDTO>> Get(int id)
         {
-            return Ok(_competitionManager.GetById(id));
+            try
+            {
+                var response = await _competitionManager.GetById(id);
+
+                if (response != null)
+                {
+                    return Ok(_mapper.Map<CompetitionDTO>(response));
+                }
+
+                return BadRequest($"No competition found with id {id}.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred while processing your request.");
+            }
         }
 
         #endregion
@@ -78,9 +92,23 @@ namespace Jogging.Rest.Controllers
         #region POST
 
         [HttpPost]
-        public ActionResult<AccountDOM>? Post([FromBody] AccountDOM account)
+        public async Task<ActionResult<CompetitionDTO>> Post([FromBody] CompetitionDTO competitionDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _competitionManager.AddAsync(_mapper.Map<CompetitionDOM>(competitionDto));
+
+                if (response != null)
+                {
+                    return Ok(_mapper.Map<CompetitionDTO>(response));
+                }
+
+                return BadRequest("Failed to add competition. Check your input data.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred while processing your request.");
+            }
         }
 
         #endregion

@@ -4,11 +4,11 @@
     {
         //crud
         void Add(T item);
-        void AddAsync(T item);
+        Task<T> AddAsync(T item);
 
         Task<IQueryable<T>> GetAllAsync();
 
-        T Get(int id);
+        Task<T> GetByIdAsync(int id);
 
         void Update(T item);
 
