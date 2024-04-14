@@ -32,6 +32,17 @@ public class CompetitionSignInController : ControllerBase
 
     #endregion CTor
 
+    #region GET
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<CompetitionPerCategory>>?> GetRegisteredCompetionsOfPerson(int personId)
+    {
+        var result = await _registrationRepo.GetRegisteredCompetionsOfPerson(personId);
+        return Ok(result);
+    }
+
+    #endregion GET
+
     #region POST
 
     [HttpPost]
