@@ -6,6 +6,6 @@ namespace Jogging.Infrastructure.Interfaces
     {
         public Task<Registration> SigninToContestAsync(Registration registration, int personId);
 
-        public Task<List<CompetitionPerCategory>> GetRegisteredCompetionsOfPerson(int personId);
+        public Task<IEnumerable<CompetitionPerCategory>> GetRegisteredCompetionsOfPerson(int personId);
     }
 }

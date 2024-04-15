@@ -6,6 +6,6 @@ public class AddressDTO
     public string Street { get; set; }
     public string City { get; set; }
 
-    public List<PersonDTO> People { get; set; }
-    public List<CompetitionDTO> Competitions { get; set; }
+    //public List<PersonDTO> People { get; set; }
+    //public List<CompetitionDTO> Competitions { get; set; }
 }
