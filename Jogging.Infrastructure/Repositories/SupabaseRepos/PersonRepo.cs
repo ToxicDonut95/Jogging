@@ -18,7 +18,7 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
             _client.From<Person>().Insert(item);
         }
 
-        public async Task<int> AddAsync(Person item)
+        public async Task<Person> AddAsync(Person item)
         {
             var addedPerson = await _client.From<Person>().Insert(item);
 

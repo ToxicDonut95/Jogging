@@ -23,7 +23,7 @@ namespace Jogging.Domain.DomeinControllers
 
         public async Task<int> CreatePerson(PersonDOM person)
         {
-            var result = _personRepo.AddAsync(_mapper.Map<Person>(person)).Result
+            var result = _personRepo.AddAsync(_mapper.Map<Person>(person)).Result;
             return result.Id;
         }
     }
