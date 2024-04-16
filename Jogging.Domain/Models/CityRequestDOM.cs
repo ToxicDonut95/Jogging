@@ -1,9 +1,9 @@
-﻿using Postgrest.Attributes;
+using Postgrest.Attributes;
 using Postgrest.Models;
 
 namespace Jogging.Domain.Models;
 
-public class CityDOM: BaseModel
+public class CityRequestDOM: BaseModel
 {
         [PrimaryKey("id", false)]
         public int Id { get; set; }

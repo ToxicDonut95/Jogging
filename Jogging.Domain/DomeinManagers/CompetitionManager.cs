@@ -16,22 +16,33 @@ public class CompetitionManager
         _competitionRepo = competitionRepo;
     }
 
-    public async Task<PagedList<CompetitionDOM>> GetAll(QueryStringParameters parameters)
+    public async Task<PagedList<CompetitionResponseDOM>> GetAll(QueryStringParameters parameters)
     {
         var competitions = await _competitionRepo.GetAllAsync();
-        var competitionsDto = competitions.Select(competition => _mapper.Map<CompetitionDOM>(competition));
-        return PagedList<CompetitionDOM>.ToPagedList(competitionsDto, parameters.PageNumber, parameters.PageSize);
+        var competitionsDto = competitions.Select(competition => _mapper.Map<CompetitionResponseDOM>(competition));
+        return PagedList<CompetitionResponseDOM>.ToPagedList(competitionsDto, parameters.PageNumber, parameters.PageSize);
     }
 
-    public async Task<CompetitionDOM> AddAsync(CompetitionDOM competition)
+    public async Task<CompetitionResponseDOM> AddAsync(CompetitionRequestDOM competitionRequest)
     {
-        var response = await _competitionRepo.AddAsync(_mapper.Map<Competition>(competition));
-        return _mapper.Map<CompetitionDOM>(response);
+        var response = await _competitionRepo.AddAsync(_mapper.Map<Competition>(competitionRequest));
+        return _mapper.Map<CompetitionResponseDOM>(response);
     }
 
-    public async Task<CompetitionDOM> GetById(int id)
+    public async Task<CompetitionResponseDOM> GetById(int id)
     {
         var response = await _competitionRepo.GetByIdAsync(id);
-        return _mapper.Map<CompetitionDOM>(response);
+        return _mapper.Map<CompetitionResponseDOM>(response);
+    }
+
+    public async Task<CompetitionResponseDOM> UpdateAsync(int id, CompetitionRequestDOM competitionRequest)
+    {
+        var response =  await _competitionRepo.UpdateAsync(id, _mapper.Map<Competition>(competitionRequest));
+        return _mapper.Map<CompetitionResponseDOM>(response);
+    }
+
+    public async Task DeleteAsync(int competitionId)
+    {
+        await _competitionRepo.DeleteAsync(competitionId);
     }
 }

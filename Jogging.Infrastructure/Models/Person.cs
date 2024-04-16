@@ -4,6 +4,7 @@ using Postgrest.Models;
 
 namespace Jogging.Infrastructure.Models
 {
+    [Table("Person")]
     public class Person : BaseModel
     {
         [PrimaryKey]

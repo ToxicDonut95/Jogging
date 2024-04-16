@@ -2,7 +2,7 @@
 
 namespace Jogging.Domain.Models;
 
-public class CompetitionPerCategoryDOM
+public class CompetitionPerCategoryRequestDOM
 {
     [Key]
     public int Id { get; set; }
@@ -16,12 +16,12 @@ public class CompetitionPerCategoryDOM
     public char Gender { get; set; }
 
     public int AgeCategoryId { get; set; }
-    public AgeCategoryDOm AgeCategory { get; set; }
+    public AgeCategoryResponseDOM AgeCategory { get; set; }
 
     public int CompetitionId { get; set; }
-    public CompetitionDOM Competition { get; set; }
+    public CompetitionResponseDOM CompetitionResponse { get; set; }
 
     public DateTime? GunTime { get; set; }
 
-    public List<RegistrationDOM> Registrations { get; set; }
+    public List<RegistrationResponseDOM> Registrations { get; set; }
 }

@@ -2,7 +2,7 @@
 
 namespace Jogging.Domain.Models;
 
-public class SchoolDOM
+public class SchoolResponseDOM
 {
     [Key]
     public int Id { get; set; }
@@ -11,5 +11,5 @@ public class SchoolDOM
     [StringLength(100)]
     public string Name { get; set; }
 
-    public List<PersonDOM> People { get; set; }
+    public List<PersonResponseDOM> People { get; set; }
 }

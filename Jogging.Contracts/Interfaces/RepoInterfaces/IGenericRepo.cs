@@ -11,6 +11,9 @@
 
         Task<T> GetByIdAsync(int id);
 
+        Task<T> UpdateAsync(int id, T updatedCompetition);
+        Task DeleteAsync(int id);
+
         void Update(T item);
 
         void Delete(T item);

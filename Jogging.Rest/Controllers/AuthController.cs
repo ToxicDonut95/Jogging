@@ -35,14 +35,14 @@ namespace Jogging.Rest.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<bool>> LogInAsync([FromBody] LogInDTO person)
+        public async Task<ActionResult<bool>> LogInAsync([FromBody] LogInRequestDTO person)
         {
             try
             {
                 var success = await _authManager.LogInAsync(person.email, person.password);
-                if (success != null)
+                if (success?.UserId != null)
                 {
-                    var jwtToken = JwtTokenUtil.Generate(_configuration); // Assuming success.UserId is the user's unique identifier
+                    var jwtToken = JwtTokenUtil.Generate(_configuration, success.UserId.ToString()); // Assuming success.UserId is the user's unique identifier
 
                     return Ok(new { Success = success, JwtToken = jwtToken });
                 }
@@ -74,17 +74,17 @@ namespace Jogging.Rest.Controllers
         }
         
         [HttpPost("register")]
-        public async Task<ActionResult<bool>> SignUpAsync([FromBody] SignUpDTO signUpDto)
+        public async Task<ActionResult<bool>> SignUpAsync([FromBody] SignUpResponseDTO signUpResponseDto)
         {
             try
             {
-                if (signUpDto.person == null)
+                if (signUpResponseDto.PersonResponse == null)
                 {
                     return BadRequest("Person information is required.");
                 }
 
-                var personDOM = _mapper.Map<PersonDOM>(signUpDto.person);
-                var success = await _authManager.SignUpAsync(signUpDto.email, signUpDto.password, personDOM);
+                var personDOM = _mapper.Map<PersonResponseDOM>(signUpResponseDto.PersonResponse);
+                var success = await _authManager.SignUpAsync(signUpResponseDto.email, signUpResponseDto.password, personDOM);
                 return Ok(success);
             }
             catch (Exception exception)

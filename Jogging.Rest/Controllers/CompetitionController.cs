@@ -40,7 +40,7 @@ namespace Jogging.Rest.Controllers
         #region GET
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<CompetitionDOM>>> GetAll([FromQuery] QueryStringParameters parameters)
+        public async Task<ActionResult<PagedList<CompetitionResponseDOM>>> GetAll([FromQuery] QueryStringParameters parameters)
         {
             try
             {
@@ -57,18 +57,18 @@ namespace Jogging.Rest.Controllers
                 };
 
                 Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-                
+
                 return Ok(competitions);
             }
             catch (Exception exception)
             {
-                return NotFound(null);
+                return NotFound(exception.Message);
             }
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CompetitionDTO>> Get(int id)
+        public async Task<ActionResult<CompetitionRequestDTO>> Get(int id)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Jogging.Rest.Controllers
 
                 if (response != null)
                 {
-                    return Ok(_mapper.Map<CompetitionDTO>(response));
+                    return Ok(_mapper.Map<CompetitionRequestDTO>(response));
                 }
 
                 return BadRequest($"No competition found with id {id}.");
@@ -92,15 +92,16 @@ namespace Jogging.Rest.Controllers
         #region POST
 
         [HttpPost]
-        public async Task<ActionResult<CompetitionDTO>> Post([FromBody] CompetitionDTO competitionDto)
+        [Authorize]
+        public async Task<ActionResult<CompetitionResponseDTO>> Post([FromBody] CompetitionRequestDTO competitionRequestDto)
         {
             try
             {
-                var response = await _competitionManager.AddAsync(_mapper.Map<CompetitionDOM>(competitionDto));
+                var response = await _competitionManager.AddAsync(_mapper.Map<CompetitionRequestDOM>(competitionRequestDto));
 
                 if (response != null)
                 {
-                    return Ok(_mapper.Map<CompetitionDTO>(response));
+                    return Ok(_mapper.Map<CompetitionResponseDTO>(response));
                 }
 
                 return BadRequest("Failed to add competition. Check your input data.");
@@ -115,20 +116,45 @@ namespace Jogging.Rest.Controllers
 
         #region PUT
 
-        [HttpPut]
-        public ActionResult<bool> Put([FromBody] AccountDOM account)
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<ActionResult<CompetitionResponseDTO>> Put(int id, [FromBody] CompetitionRequestDTO competitionRequestDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _competitionManager.UpdateAsync(id, _mapper.Map<CompetitionRequestDOM>(competitionRequestDto));
+
+                if (response != null)
+                {
+                    return Ok(_mapper.Map<CompetitionResponseDTO>(response));
+                }
+
+                return BadRequest("Failed to update competition. Check your input data.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred while processing your request.");
+            }
         }
 
         #endregion
 
         #region DELETE
 
-        [HttpDelete]
-        public ActionResult<bool> Delete([FromBody] AccountDOM account)
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<ActionResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _competitionManager.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred while processing your request.");
+            }
         }
 
         #endregion

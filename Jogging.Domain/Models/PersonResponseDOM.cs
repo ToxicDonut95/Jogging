@@ -2,7 +2,7 @@
 
 namespace Jogging.Domain.Models
 {
-    public class PersonDOM
+    public class PersonResponseDOM
     {
         [Key]
         public int Id { get; set; }
@@ -22,10 +22,10 @@ namespace Jogging.Domain.Models
         public string IBANNumber { get; set; }
 
         public int? SchoolId { get; set; }
-        public SchoolDOM School { get; set; }
+        public SchoolResponseDOM SchoolResponse { get; set; }
 
         public int? AddressId { get; set; }
-        public AddressDOM Address { get; set; }
+        public AddressResponseDOM AddressResponse { get; set; }
 
         public Guid? UserId { get; set; }
     }

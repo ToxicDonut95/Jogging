@@ -32,7 +32,7 @@ namespace Jogging.Rest.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<PersonDTO>>?> GetAll()
+        public async Task<ActionResult<IEnumerable<PersonResponseDTO>>?> GetAll()
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Jogging.Rest.Controllers
                     return NotFound("No persons found.");
                 }
 
-                var personDtoIEnumerable = _mapper.Map<IEnumerable<PersonDTO>>(persons);
+                var personDtoIEnumerable = _mapper.Map<IEnumerable<PersonResponseDTO>>(persons);
                 return Ok(personDtoIEnumerable);
             }
             catch (Exception exception)
@@ -57,11 +57,11 @@ namespace Jogging.Rest.Controllers
         #region POST
 
         [HttpPost]
-        public async Task<ActionResult<int>>? CreatePerson([FromBody] PersonDTO person)
+        public async Task<ActionResult<int>>? CreatePerson([FromBody] PersonResponseDTO personResponse)
         {
             //try
             //{
-            var result = await _personDomain.CreatePerson(_mapper.Map<PersonDOM>(person));
+            var result = await _personDomain.CreatePerson(_mapper.Map<PersonResponseDOM>(personResponse));
             return Ok(result);
             //}
             //catch (Exception ex)

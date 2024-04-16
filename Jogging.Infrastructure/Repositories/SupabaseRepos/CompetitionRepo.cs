@@ -17,22 +17,6 @@ public class CompetitionRepo : IGenericRepo<Competition>
         throw new NotImplementedException();
     }
 
-    public async Task<Competition> AddAsync(Competition competition)
-    {
-        var existingCompetition = await GetByIdAsync(competition.Id);
-
-        if (existingCompetition != null)
-        {
-            return existingCompetition;
-        }
-        
-        var response = await _client
-            .From<Competition>()
-            .Insert(competition);
-
-        return response.Model;
-    }
-
     public async Task<IQueryable<Competition>> GetAllAsync()
     {
         var result = await _client.From<Competition>().Get();
@@ -47,6 +31,46 @@ public class CompetitionRepo : IGenericRepo<Competition>
             .Get();
 
         return existingCompetition.Model;
+    }
+
+    public async Task<Competition> AddAsync(Competition competition)
+    {
+        var response = await _client
+            .From<Competition>()
+            .Insert(competition);
+
+        return response.Model;
+    }
+    public async Task<Competition> UpdateAsync(int id, Competition updatedCompetition)
+    {
+        var response = await _client
+            .From<Competition>()
+            .Where(c => c.Id ==  id)
+            .Get();
+        var competition = response.Model;
+
+        if (competition != null)
+        {
+            competition.Name = updatedCompetition.Name;
+            competition.Date = updatedCompetition.Date;
+            competition.AddressId = updatedCompetition.AddressId;
+
+            await _client
+                .From<Competition>()
+                .Upsert(competition);
+
+            return competition;
+        }
+
+        return null;
+    }
+
+    public async Task DeleteAsync(int competitionId)
+    {
+        await _client
+            .From<Competition>()
+            .Where(c => c.Id ==competitionId)
+            .Delete();
     }
 
     public void Update(Competition item)
