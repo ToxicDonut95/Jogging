@@ -13,7 +13,7 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash
 RUN apt-get -y install nodejs
 
 FROM with-node AS build
-ARG BUILD_CONFIGURATION=Debug
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Jogging.Api/Jogging.Api.csproj", "Jogging.Api/"]
 RUN dotnet restore "Jogging.Api/Jogging.Api.csproj"
