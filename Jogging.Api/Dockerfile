@@ -15,7 +15,7 @@ RUN apt-get -y install nodejs
 FROM with-node AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Jogging.Api/Jogging.Api.csproj", "Jogging.Api/"]
+COPY ["Jogging.Api.csproj", "Jogging.Api/"]
 RUN dotnet restore "./Jogging.Api/Jogging.Api.csproj"
 COPY . .
 WORKDIR "/src/Jogging.Api"
