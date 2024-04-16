@@ -30,7 +30,6 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 RUN mkdir -p /app/certificates
-COPY Certificates/aspnetapp.pfx /app/certificates/
-
+COPY Jogging.Api/Certificates/aspnetapp.pfx /app/certificates/
 
 ENTRYPOINT ["dotnet", "Jogging.Api.dll"]
