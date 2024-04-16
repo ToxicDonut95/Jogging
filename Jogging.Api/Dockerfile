@@ -3,8 +3,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER root
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS with-node
 RUN apt-get update
@@ -13,10 +13,10 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash
 RUN apt-get -y install nodejs
 
 FROM with-node AS build
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
 WORKDIR /src
-COPY ["Jogging.Api.csproj", "Jogging.Api/"]
-RUN dotnet restore "./Jogging.Api/Jogging.Api.csproj"
+COPY ["Jogging.Api/Jogging.Api.csproj", "Jogging.Api/"]
+RUN dotnet restore "Jogging.Api/Jogging.Api.csproj"
 COPY . .
 WORKDIR "/src/Jogging.Api"
 RUN dotnet build "Jogging.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
