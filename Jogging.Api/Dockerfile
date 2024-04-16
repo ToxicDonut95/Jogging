@@ -19,11 +19,11 @@ COPY ["Jogging.Api.csproj", "Jogging.Api/"]
 RUN dotnet restore "./Jogging.Api/Jogging.Api.csproj"
 COPY . .
 WORKDIR "/src/Jogging.Api"
-RUN dotnet build "./Jogging.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "Jogging.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Jogging.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Jogging.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
