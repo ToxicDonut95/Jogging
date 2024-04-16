@@ -21,7 +21,7 @@ namespace Jogging.Domain.DomeinControllers
             return _mapper.Map<IEnumerable<PersonResponseDOM>>(await _personRepo.GetAllAsync());
         }
 
-        public async Task<int> CreatePerson(PersonResponseDOM personResponse)
+        public async Task<int> CreatePerson(PersonRequestDOM personResponse)
         {
             var result = _personRepo.AddAsync(_mapper.Map<Person>(personResponse)).Result;
             return result.Id;

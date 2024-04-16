@@ -35,10 +35,18 @@ public class CompetitionSignInController : ControllerBase
     #region GET
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CompetitionPerCategory>>?> GetRegisteredCompetionsOfPerson(int personId)
+    public async Task<ActionResult<IEnumerable<CompetitionPerCategoryRequestDTO>>?> GetRegisteredCompetionsOfPerson(int personId)
     {
-        var result = await _registrationRepo.GetRegisteredCompetionsOfPerson(personId);
-        return Ok(result);
+        try
+        {
+            var result = await _registrationRepo.GetRegisteredCompetionsOfPerson(personId);
+            IEnumerable<CompetitionPerCategoryResponseDTO> personalCompetitionPerCategories = result.Select(r => _mapper.Map<CompetitionPerCategoryResponseDTO>(r));
+            return Ok(personalCompetitionPerCategories);
+        }
+        catch (Exception)
+        {
+            return NotFound(null);
+        }
     }
 
     #endregion GET

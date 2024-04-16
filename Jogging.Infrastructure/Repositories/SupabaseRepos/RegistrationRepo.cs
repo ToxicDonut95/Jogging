@@ -16,20 +16,37 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 
         public async Task<IEnumerable<CompetitionPerCategory>> GetRegisteredCompetionsOfPerson(int personId)
         {
-            var personRegistrationresult = await _client.From<PersonRegistration>().Where(pR => pR.PersonId == personId).Get();
-            IEnumerable<int> registrationIds = personRegistrationresult.Models.Select(pR => pR.RegistrationId);
-            var registrationsResult = await _client.From<Registration>().Where(r => registrationIds.Contains(r.Id)).Get();
-            IEnumerable<int> competitionPerCatIds = registrationsResult.Models.Select(r => r.CompetitionPerCategoryId);
-            var competitionPerCategoryResult = await _client.From<CompetitionPerCategory>().Where(cPC => competitionPerCatIds.Contains(cPC.Id)).Get();
-            return competitionPerCategoryResult.Models;
+            try
+            {
+                var personRegistrationresult = await _client.From<PersonRegistration>().Where(pR => pR.PersonId == personId).Get();
+                IEnumerable<int> registrationIds = personRegistrationresult.Models.Select(pR => pR.RegistrationId);
+                var registrationsResult = await _client.From<Registration>().Get();
+                var personalRegistrations = registrationsResult.Models.Where(r => registrationIds.Contains(r.Id));
+                IEnumerable<int> competitionPerCatIds = personalRegistrations.Select(r => r.CompetitionPerCategoryId);
+                var competitionPerCategoryResult = await _client.From<CompetitionPerCategory>().Get();
+                var personalCompetitionsPerCategories = competitionPerCategoryResult.Models.Where(cPC => competitionPerCatIds.Contains(cPC.Id));
+                return personalCompetitionsPerCategories.AsEnumerable<CompetitionPerCategory>();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<Registration> SigninToContestAsync(Registration registration, int personId)
         {
-            var result = await _client.From<Registration>().Insert(registration, new Postgrest.QueryOptions { Returning = ReturnType.Representation });
-            int registrationId = (int)result.Model.Id;
-            await _client.From<PersonRegistration>().Insert(new PersonRegistration(personId, registrationId));
-            return result.Model;
+            try
+            {
+                var result = await _client.From<Registration>().Insert(registration, new Postgrest.QueryOptions { Returning = ReturnType.Representation });
+                int registrationId = (int)result.Model.Id;
+                PersonRegistration personRegistration = new PersonRegistration() { PersonId = personId, RegistrationId = registrationId };
+                await _client.From<PersonRegistration>().Insert(personRegistration);
+                return result.Model;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
     }
 }
