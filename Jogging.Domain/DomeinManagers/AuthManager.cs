@@ -9,7 +9,7 @@ public class AuthManager
 {
     private readonly IAuthenticationRepo _authRepo;
     private readonly IMapper _mapper;
-    public PersonDOM LoggedInPerson { get; private set; }
+    public PersonResponseDOM LoggedInPersonResponse { get; private set; }
 
     public AuthManager(IAuthenticationRepo authRepo, IMapper mapper)
     {
@@ -17,30 +17,30 @@ public class AuthManager
         _mapper = mapper;
     }
 
-    public async Task<PersonDOM?> LogInAsync(string email, string password)
+    public async Task<PersonResponseDOM?> LogInAsync(string email, string password)
     {
-        var loggedInPerson = _mapper.Map<PersonDOM>(await _authRepo.AuthenticateAsync(email, password));
+        var loggedInPerson = _mapper.Map<PersonResponseDOM>(await _authRepo.AuthenticateAsync(email, password));
         if (loggedInPerson == null)
         {
             return null;
         }
         else
         {
-            LoggedInPerson = loggedInPerson;
+            LoggedInPersonResponse = loggedInPerson;
             return loggedInPerson;
         }
     }
 
-    public async Task<bool> SignUpAsync(string email, string password, PersonDOM signedUpPersonDOM)
+    public async Task<bool> SignUpAsync(string email, string password, PersonResponseDOM signedUpPersonResponseDom)
     {
-        var loggedInPerson = _mapper.Map<PersonDOM>(await _authRepo.SignUpAsync(email, password, _mapper.Map<Person>(signedUpPersonDOM)));
+        var loggedInPerson = _mapper.Map<PersonResponseDOM>(await _authRepo.SignUpAsync(email, password, _mapper.Map<Person>(signedUpPersonResponseDom)));
         if (loggedInPerson == null)
         {
             return false;
         }
         else
         {
-            LoggedInPerson = loggedInPerson;
+            LoggedInPersonResponse = loggedInPerson;
             return true;
         }
     }

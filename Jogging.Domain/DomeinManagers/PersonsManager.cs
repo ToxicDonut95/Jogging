@@ -16,14 +16,14 @@ namespace Jogging.Domain.DomeinControllers
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<PersonDOM>> GetAllAsync()
+        public async Task<IEnumerable<PersonResponseDOM>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<PersonDOM>>(await _personRepo.GetAllAsync());
+            return _mapper.Map<IEnumerable<PersonResponseDOM>>(await _personRepo.GetAllAsync());
         }
 
-        public async Task<int> CreatePerson(PersonDOM person)
+        public async Task<int> CreatePerson(PersonResponseDOM personResponse)
         {
-            var result = _personRepo.AddAsync(_mapper.Map<Person>(person)).Result;
+            var result = _personRepo.AddAsync(_mapper.Map<Person>(personResponse)).Result;
             return result.Id;
         }
     }

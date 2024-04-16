@@ -46,11 +46,11 @@ public class CompetitionSignInController : ControllerBase
     #region POST
 
     [HttpPost]
-    public async Task<ActionResult<bool>>? RegisterToContest([FromBody] RegistrationDTO registration)
+    public async Task<ActionResult<bool>>? RegisterToContest([FromBody] RegistrationRequestDTO registrationRequest)
     {
         //try
         //{
-        await _registrationRepo.SigninToContestAsync(_mapper.Map<Registration>(registration), registration.PersonId);
+        await _registrationRepo.SigninToContestAsync(_mapper.Map<Registration>(registrationRequest), registrationRequest.PersonId);
         return Ok(true);
         //}
         //catch (Exception ex)

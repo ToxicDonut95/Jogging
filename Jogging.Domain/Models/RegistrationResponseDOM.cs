@@ -2,7 +2,7 @@
 
 namespace Jogging.Domain.Models;
 
-public class RegistrationDOM
+public class RegistrationResponseDOM
 {
     [Key]
     public int Id { get; set; }
@@ -12,5 +12,5 @@ public class RegistrationDOM
     public DateTime? FinishTime { get; set; }
 
     public int CompetitionPerCategoryId { get; set; }
-    public CompetitionPerCategoryDOM CompetitionPerCategory { get; set; }
+    public CompetitionPerCategoryResponseDOM CompetitionPerCategoryResponse { get; set; }
 }

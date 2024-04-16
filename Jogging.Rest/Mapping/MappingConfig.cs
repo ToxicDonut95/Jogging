@@ -10,18 +10,25 @@ namespace Jogging.Rest.Mapping
     {
         public MappingConfig()
         {
-            CreateMap<PersonDOM, PersonDTO>().ReverseMap();
-            CreateMap<Person, PersonDOM>().ReverseMap();
-            CreateMap<SchoolDOM, SchoolDTO>().ReverseMap();
-            CreateMap<School, SchoolDOM>().ReverseMap();
-            CreateMap<AddressDOM, AddressDTO>().ReverseMap();
-            CreateMap<Address, AddressDOM>().ReverseMap();
-            CreateMap<Task<IEnumerable<Person>>, Task<IEnumerable<PersonDOM>>>().ReverseMap();
-            CreateMap<Task<IEnumerable<PersonDOM>>, IEnumerable<PersonDTO>>().ReverseMap();
-            CreateMap<Competition, CompetitionDOM>().ReverseMap();
-            CreateMap<CompetitionDOM, CompetitionDTO>().ReverseMap();
-            CreateMap<Registration, RegistrationDTO>().ReverseMap();
-            CreateMap<Task<Registration>, RegistrationDTO>().ReverseMap();
+            CreateMap<PersonResponseDOM, PersonResponseDTO>().ReverseMap();
+            CreateMap<Person, PersonResponseDOM>().ReverseMap();
+            
+            CreateMap<SchoolResponseDOM, SchoolRequestDTO>().ReverseMap();
+            CreateMap<School, SchoolResponseDOM>().ReverseMap();
+            
+            CreateMap<AddressResponseDOM, AddressResponseDTO>().ReverseMap();
+            CreateMap<Address, AddressResponseDOM>().ReverseMap();
+            
+            CreateMap<Task<IEnumerable<Person>>, Task<IEnumerable<PersonResponseDOM>>>().ReverseMap();
+            CreateMap<Task<IEnumerable<PersonResponseDOM>>, IEnumerable<PersonResponseDTO>>().ReverseMap();
+            
+            CreateMap<Competition, CompetitionResponseDOM>().ReverseMap();
+            CreateMap<CompetitionResponseDOM, CompetitionResponseDTO>().ReverseMap();            
+            CreateMap<Competition, CompetitionRequestDOM>().ReverseMap();
+            CreateMap<CompetitionRequestDOM, CompetitionRequestDTO>().ReverseMap();
+            
+            CreateMap<Registration, RegistrationResponseDTO>().ReverseMap();
+            CreateMap<Task<Registration>, RegistrationResponseDTO>().ReverseMap();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Jogging.Domain.Models;
 
-public class AgeCategoryDOm
+public class AgeCategoryResponseDOM
 {
     [Key]
     public int Id { get; set; }

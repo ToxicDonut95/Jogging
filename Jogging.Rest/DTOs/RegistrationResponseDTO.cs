@@ -1,6 +1,6 @@
 ﻿namespace Jogging.Rest.DTOs;
 
-public class RegistrationDTO
+public class RegistrationResponseDTO
 {
     //public int Id { get; set; }
 

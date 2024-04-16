@@ -31,7 +31,7 @@ CREATE TABLE public."Person"
     "IBANNumber"    VARCHAR(30),
     "SchoolId"      INT,
     "AddressId"     INT,
-    "UserId"        UUID NOT NULL ,
+    "UserId"        UUID NOT NULL UNIQUE ,
     FOREIGN KEY ("SchoolId") REFERENCES public."School" ("Id"),
     FOREIGN KEY ("AddressId") REFERENCES public."Address" ("Id"),
     FOREIGN KEY ("UserId") REFERENCES auth."users" ("id")

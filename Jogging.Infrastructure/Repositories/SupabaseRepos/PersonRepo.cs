@@ -35,6 +35,16 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
             throw new NotImplementedException();
         }
 
+        public Task<Person> UpdateAsync(int id, Person updatedCompetition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(int personId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IQueryable<Person>> GetAllAsync()
         {
             var result = await _client

@@ -1,6 +1,6 @@
 ﻿namespace Jogging.Rest.DTOs;
 
-public class AgeCategoryDTO
+public class AgeCategoryResponseDTO
 {
     public int Id { get; set; }
     public string Name { get; set; }
