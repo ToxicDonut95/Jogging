@@ -29,7 +29,12 @@ namespace Jogging.Rest.Mapping
             CreateMap<CompetitionRequestDOM, CompetitionRequestDTO>().ReverseMap();
 
             CreateMap<Registration, RegistrationResponseDTO>().ReverseMap();
+            CreateMap<Registration, RegistrationRequestDTO>().ReverseMap();
             CreateMap<Task<Registration>, RegistrationResponseDTO>().ReverseMap();
+
+            CreateMap<Task<CompetitionPerCategory>, CompetitionPerCategoryResponseDTO>().ReverseMap();
+            CreateMap<Task<CompetitionPerCategory>, CompetitionPerCategoryRequestDTO>().ReverseMap();
+            CreateMap<CompetitionPerCategory, CompetitionPerCategoryResponseDTO>().ReverseMap();
         }
     }
 }

@@ -16,12 +16,21 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 
         public async Task<IEnumerable<CompetitionPerCategory>> GetRegisteredCompetionsOfPerson(int personId)
         {
-            var personRegistrationresult = await _client.From<PersonRegistration>().Where(pR => pR.PersonId == personId).Get();
-            IEnumerable<int> registrationIds = personRegistrationresult.Models.Select(pR => pR.RegistrationId);
-            var registrationsResult = await _client.From<Registration>().Where(r => registrationIds.Contains(r.Id)).Get();
-            IEnumerable<int> competitionPerCatIds = registrationsResult.Models.Select(r => r.CompetitionPerCategoryId);
-            var competitionPerCategoryResult = await _client.From<CompetitionPerCategory>().Where(cPC => competitionPerCatIds.Contains(cPC.Id)).Get();
-            return competitionPerCategoryResult.Models;
+            try
+            {
+                var personRegistrationresult = await _client.From<PersonRegistration>().Where(pR => pR.PersonId == personId).Get();
+                IEnumerable<int> registrationIds = personRegistrationresult.Models.Select(pR => pR.RegistrationId);
+                var registrationsResult = await _client.From<Registration>().Get();
+                var personalRegistrations = registrationsResult.Models.Where(r => registrationIds.Contains(r.Id));
+                IEnumerable<int> competitionPerCatIds = personalRegistrations.Select(r => r.CompetitionPerCategoryId);
+                var competitionPerCategoryResult = await _client.From<CompetitionPerCategory>().Get();
+                var personalCompetitionsPerCategories = competitionPerCategoryResult.Models.Where(cPC => competitionPerCatIds.Contains(cPC.Id));
+                return personalCompetitionsPerCategories.AsEnumerable<CompetitionPerCategory>();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<Registration> SigninToContestAsync(Registration registration, int personId)
