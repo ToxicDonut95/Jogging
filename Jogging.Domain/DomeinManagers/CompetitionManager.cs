@@ -3,6 +3,7 @@ using Jogging.Contracts.Interfaces.RepoInterfaces;
 using Jogging.Domain.Helpers;
 using Jogging.Domain.Models;
 using Jogging.Infrastructure.Models;
+using Exception = System.Exception;
 
 namespace Jogging.Domain.DomeinControllers;
 
@@ -18,9 +19,18 @@ public class CompetitionManager
 
     public async Task<PagedList<CompetitionResponseDOM>> GetAll(QueryStringParameters parameters)
     {
-        var competitions = await _competitionRepo.GetAllAsync();
-        var competitionsDto = competitions.Select(competition => _mapper.Map<CompetitionResponseDOM>(competition));
-        return PagedList<CompetitionResponseDOM>.ToPagedList(competitionsDto, parameters.PageNumber, parameters.PageSize);
+        try
+        {
+            var competitions = await _competitionRepo.GetAllAsync();
+            var competitionsDto = competitions.Select(competition => _mapper.Map<CompetitionResponseDOM>(competition));
+            return PagedList<CompetitionResponseDOM>.ToPagedList(competitionsDto, parameters.PageNumber,
+                parameters.PageSize);
+        }
+        catch (Exception  e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public async Task<CompetitionResponseDOM> AddAsync(CompetitionRequestDOM competitionRequest)
