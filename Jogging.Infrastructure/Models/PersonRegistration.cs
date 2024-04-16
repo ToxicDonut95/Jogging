@@ -3,23 +3,15 @@ using Postgrest.Models;
 
 namespace Jogging.Infrastructure.Models;
 
-[Table("PersonRegistration")]
+[Table("PersonResult")]
 public class PersonRegistration : BaseModel
 {
     [Column("PersonId")]
     public int PersonId { get; set; }
+
     //public Person Person { get; set; }
-    [Column("RegistrationId")]
+    [Column("ResultId")]
     public int RegistrationId { get; set; }
+
     //public Registration Registration { get; set; }
-
-    public PersonRegistration()
-    {
-    }
-
-    public PersonRegistration(int personId, int registrationId)
-    {
-        PersonId = personId;
-        RegistrationId = registrationId;
-    }
 }

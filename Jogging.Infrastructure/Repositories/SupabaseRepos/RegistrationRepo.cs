@@ -26,10 +26,18 @@ namespace Jogging.Infrastructure.Repositories.SupabaseRepos
 
         public async Task<Registration> SigninToContestAsync(Registration registration, int personId)
         {
-            var result = await _client.From<Registration>().Insert(registration, new Postgrest.QueryOptions { Returning = ReturnType.Representation });
-            int registrationId = (int)result.Model.Id;
-            await _client.From<PersonRegistration>().Insert(new PersonRegistration(personId, registrationId));
-            return result.Model;
+            try
+            {
+                var result = await _client.From<Registration>().Insert(registration, new Postgrest.QueryOptions { Returning = ReturnType.Representation });
+                int registrationId = (int)result.Model.Id;
+                PersonRegistration personRegistration = new PersonRegistration() { PersonId = personId, RegistrationId = registrationId };
+                await _client.From<PersonRegistration>().Insert(personRegistration);
+                return result.Model;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
     }
 }
