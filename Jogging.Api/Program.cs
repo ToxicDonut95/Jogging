@@ -67,11 +67,13 @@ internal class Program
 
         var app = builder.Build();
         HelmetConfig.AddHsts(app, builder);
-        if (app.Environment.IsDevelopment())
-        {
+        /*if (app.Environment.IsDevelopment())
+        {*/
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "joggingapi v1"); });
+        /*
         }
+        */
 
         app.UseRateLimiter();
 
