@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Jogging.Domain.Models;
+using Jogging.Domain.Validators;
 using Jogging.Infrastructure.Interfaces;
 using Jogging.Infrastructure.Models;
 
@@ -31,17 +32,19 @@ public class AuthManager
         }
     }
 
-    public async Task<bool> SignUpAsync(string email, string password, PersonResponseDOM signedUpPersonResponseDom)
+    public async Task<PersonResponseDOM> SignUpAsync(string email, string password, PersonRequestDOM singedUpPersonDom)
     {
-        var loggedInPerson = _mapper.Map<PersonResponseDOM>(await _authRepo.SignUpAsync(email, password, _mapper.Map<Person>(signedUpPersonResponseDom)));
+        Person signedUpPerson = _mapper.Map<Person>(singedUpPersonDom);
+        PersonValidator.ValidatePersonRequest(signedUpPerson);
+        var loggedInPerson = _mapper.Map<PersonResponseDOM>(await _authRepo.SignUpAsync(email, password, signedUpPerson));
         if (loggedInPerson == null)
         {
-            return false;
+            return null;
         }
         else
         {
             LoggedInPersonResponse = loggedInPerson;
-            return true;
+            return loggedInPerson;
         }
     }
 

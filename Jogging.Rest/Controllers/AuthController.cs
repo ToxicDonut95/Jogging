@@ -74,18 +74,13 @@ namespace Jogging.Rest.Controllers
         }
         
         [HttpPost("register")]
-        public async Task<ActionResult<bool>> SignUpAsync([FromBody] SignUpResponseDTO signUpResponseDto)
+        public async Task<ActionResult<PersonResponseDTO>> SignUpAsync([FromBody] SignUpRequestDTO signUpRequestDto)
         {
             try
             {
-                if (signUpResponseDto.PersonResponse == null)
-                {
-                    return BadRequest("Person information is required.");
-                }
-
-                var personDOM = _mapper.Map<PersonResponseDOM>(signUpResponseDto.PersonResponse);
-                var success = await _authManager.SignUpAsync(signUpResponseDto.email, signUpResponseDto.password, personDOM);
-                return Ok(success);
+               var personDOM = _mapper.Map<PersonRequestDOM>(signUpRequestDto.Person);
+                var success = await _authManager.SignUpAsync(signUpRequestDto.email, signUpRequestDto.password, personDOM);
+                return Ok(_mapper.Map<PersonResponseDTO>(success));
             }
             catch (Exception exception)
             {

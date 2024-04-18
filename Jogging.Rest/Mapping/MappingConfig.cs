@@ -12,6 +12,8 @@ namespace Jogging.Rest.Mapping
         {
             CreateMap<PersonResponseDOM, PersonResponseDTO>().ReverseMap();
             CreateMap<Person, PersonResponseDOM>().ReverseMap();
+            CreateMap<PersonRequestDOM, PersonRequestDTO>().ReverseMap();
+            CreateMap<Person, PersonRequestDOM>().ReverseMap();
             
             CreateMap<School, SchoolResponseDOM>().ReverseMap();
             CreateMap<SchoolResponseDOM, SchoolResponseDTO>().ReverseMap();             

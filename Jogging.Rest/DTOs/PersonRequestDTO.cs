@@ -8,11 +8,9 @@
         public string? IBANNumber { get; set; }
 
         public int? SchoolId { get; set; }
-        //public SchoolResponseDTO? School { get; set; }
+        public SchoolRequestDTO? School { get; set; }
 
-        //public int? AddressId { get; set; }
+        public int? AddressId { get; set; }
         public AddressRequestDTO? Address { get; set; }
-
-        public Guid? UserId { get; set; }
     }
 }
