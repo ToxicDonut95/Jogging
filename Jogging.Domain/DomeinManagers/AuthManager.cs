@@ -21,7 +21,8 @@ public class AuthManager
     public async Task<PersonResponseDOM?> LogInAsync(string email, string password)
     {
         AuthenticationValidator.ValidateEmailInput(email);
-        var loggedInPerson = _mapper.Map<PersonResponseDOM>(await _authRepo.AuthenticateAsync(email, password));
+        var loggedInPersonDom = await _authRepo.AuthenticateAsync(email, password);
+        var loggedInPerson = _mapper.Map<PersonResponseDOM>(loggedInPersonDom);
         if (loggedInPerson == null)
         {
             return null;

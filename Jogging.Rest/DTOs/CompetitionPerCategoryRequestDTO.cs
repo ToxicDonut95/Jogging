@@ -8,11 +8,9 @@ public class CompetitionPerCategoryRequestDTO
 
     public char Gender { get; set; }
 
-    public int AgeCategoryId { get; set; }
-    public AgeCategoryResponseDTO AgeCategoryResponse { get; set; }
+    public AgeCategoryResponseDTO AgeCategory { get; set; }
 
-    public int CompetitionId { get; set; }
-    public CompetitionRequestDTO CompetitionRequest { get; set; }
+    public CompetitionRequestDTO Competition { get; set; }
 
     public DateTime? GunTime { get; set; }
 

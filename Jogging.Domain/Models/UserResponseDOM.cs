@@ -1,6 +1,6 @@
 ﻿namespace Jogging.Domain.Models;
 
-public class UserDOM
+public class UserResponseDOM
 {
 
 }
