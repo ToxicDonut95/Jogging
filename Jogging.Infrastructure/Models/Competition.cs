@@ -16,6 +16,9 @@ public class Competition : BaseModel
     [Column("Date")] 
     public DateTime? Date { get; set; }
 
+    [Column("Active")] 
+    public bool Active { get; set; } = false;
+
     [Column("AddressId")] 
     public int? AddressId { get; set; }
     [Reference(typeof(Address), ReferenceAttribute.JoinType.Left)]

@@ -1,5 +1,6 @@
 ﻿using Jogging.Contracts.Interfaces.RepoInterfaces;
 using Jogging.Infrastructure.Models;
+using Postgrest;
 
 namespace Jogging.Infrastructure.Repositories.SupabaseRepos;
 
@@ -19,7 +20,10 @@ public class CompetitionRepo : IGenericRepo<Competition>
 
     public async Task<IQueryable<Competition>> GetAllAsync()
     {
-        var result = await _client.From<Competition>().Get();
+        var result = await _client
+            .From<Competition>()
+            .Order(competition => competition.Date, Constants.Ordering.Ascending)
+            .Get();
         return result.Models.AsQueryable();
     }
 
@@ -27,7 +31,7 @@ public class CompetitionRepo : IGenericRepo<Competition>
     {
         var existingCompetition = await _client
             .From<Competition>()
-            .Where(c => c.Id == id)
+            .Where(c => c.Id == id && c.Active == true)
             .Get();
 
         return existingCompetition.Model;

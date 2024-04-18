@@ -20,6 +20,7 @@ public class AuthManager
 
     public async Task<PersonResponseDOM?> LogInAsync(string email, string password)
     {
+        AuthenticationValidator.ValidateEmailInput(email);
         var loggedInPerson = _mapper.Map<PersonResponseDOM>(await _authRepo.AuthenticateAsync(email, password));
         if (loggedInPerson == null)
         {
@@ -35,6 +36,7 @@ public class AuthManager
     public async Task<PersonResponseDOM> SignUpAsync(string email, string password, PersonRequestDOM singedUpPersonDom)
     {
         Person signedUpPerson = _mapper.Map<Person>(singedUpPersonDom);
+        AuthenticationValidator.ValidateEmailInput(email);
         PersonValidator.ValidatePersonRequest(signedUpPerson);
         var loggedInPerson = _mapper.Map<PersonResponseDOM>(await _authRepo.SignUpAsync(email, password, signedUpPerson));
         if (loggedInPerson == null)
@@ -50,6 +52,7 @@ public class AuthManager
 
     public async Task<bool> RequestPasswordAsync(string personEmail)
     {
+        AuthenticationValidator.ValidateEmailInput(personEmail);
         return await _authRepo.RequestPasswordAsync(personEmail);
     }
 }

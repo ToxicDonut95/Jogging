@@ -13,10 +13,10 @@ using Jogging.Infrastructure.Interfaces;
 
 namespace Jogging.Rest.Controllers
 {
-    #if ProducesConsumes
+#if ProducesConsumes
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
-    #endif
+#endif
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -26,7 +26,8 @@ namespace Jogging.Rest.Controllers
         private readonly JwtConfiguration _configuration;
         private readonly ITokenBlacklistService _tokenBlacklistService;
 
-        public AuthController(AuthManager authManager, IMapper mapper, IOptions<JwtConfiguration> configuration, ITokenBlacklistService tokenBlacklistService)
+        public AuthController(AuthManager authManager, IMapper mapper, IOptions<JwtConfiguration> configuration,
+            ITokenBlacklistService tokenBlacklistService)
         {
             _authManager = authManager ?? throw new ArgumentNullException(nameof(authManager));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -35,16 +36,18 @@ namespace Jogging.Rest.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<bool>> LogInAsync([FromBody] LogInRequestDTO person)
+        public async Task<ActionResult<PersonResponseDTO>> LogInAsync([FromBody] LogInRequestDTO person)
         {
             try
             {
                 var success = await _authManager.LogInAsync(person.email, person.password);
                 if (success?.UserId != null)
                 {
-                    var jwtToken = JwtTokenUtil.Generate(_configuration, success.UserId.ToString()); // Assuming success.UserId is the user's unique identifier
+                    var jwtToken =
+                        JwtTokenUtil.Generate(_configuration,
+                            success.UserId.ToString());
 
-                    return Ok(new { Success = success, JwtToken = jwtToken });
+                    return Ok(new { Person = _mapper.Map<PersonResponseDTO>(success), JwtToken = jwtToken });
                 }
 
                 return BadRequest();
@@ -72,14 +75,15 @@ namespace Jogging.Rest.Controllers
 
             return BadRequest("Invalid token");
         }
-        
+
         [HttpPost("register")]
         public async Task<ActionResult<PersonResponseDTO>> SignUpAsync([FromBody] SignUpRequestDTO signUpRequestDto)
         {
             try
             {
-               var personDOM = _mapper.Map<PersonRequestDOM>(signUpRequestDto.Person);
-                var success = await _authManager.SignUpAsync(signUpRequestDto.email, signUpRequestDto.password, personDOM);
+                var personDOM = _mapper.Map<PersonRequestDOM>(signUpRequestDto.Person);
+                var success =
+                    await _authManager.SignUpAsync(signUpRequestDto.email, signUpRequestDto.password, personDOM);
                 return Ok(_mapper.Map<PersonResponseDTO>(success));
             }
             catch (Exception exception)
@@ -87,7 +91,7 @@ namespace Jogging.Rest.Controllers
                 return BadRequest(exception.Message ?? "An error occurred during sign up.");
             }
         }
-     
+
         [HttpPost("request-password")]
         public async Task<ActionResult<bool>> RequestPasswordAsync([FromBody] PasswordRequestDto person)
         {
